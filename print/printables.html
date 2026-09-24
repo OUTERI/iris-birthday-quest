@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iris 生日任务 · 可打印素材</title>
+<link rel="icon" type="image/svg+xml" href="../docs/assets/favicon.svg">
+<style>
+@page { size: A4; margin: 9mm; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #d2c6ae; color: #3d2a27; font-family: "Noto Serif SC", "Songti SC", Georgia, serif; }
+.toolbar { position: sticky; top: 0; z-index: 2; padding: 12px 18px; background: #30242c; color: #fff4d6; font: 14px Arial, sans-serif; display: flex; justify-content: space-between; align-items: center; gap: 15px; }
+.toolbar button { padding: 9px 18px; color: #fff4d6; background: #793747; border: 1px solid #cca86e; cursor: pointer; }
+.sheet { position: relative; width: 210mm; min-height: 297mm; margin: 12px auto; padding: 12mm; background: #fbf3df; box-shadow: 0 10px 25px #0003; break-after: page; page-break-after: always; overflow: hidden; }
+.sheet:last-child { break-after: auto; page-break-after: auto; }
+.sheet-title { margin: 0 0 7mm; text-align: center; font: 700 13pt Georgia, serif; letter-spacing: .12em; color: #743444; }
+.sheet-note { margin: 0 0 5mm; font-size: 9pt; line-height: 1.55; color: #775c49; }
+.cut { border: 1px dashed #a47d5f; }
+.letter { width: 142mm; height: 185mm; margin: 0 auto 7mm; padding: 15mm 13mm; text-align: center; border: 2px solid #8e614a; outline: 1px solid #c7a06b; outline-offset: -6mm; background: radial-gradient(circle at 32% 20%, #fff7df, #f2e2ba); }
+.letter-kicker { font: 700 10pt Georgia, serif; letter-spacing: .16em; color: #723141; }
+.letter h1 { margin: 8mm 0 3mm; font-size: 20pt; line-height: 1.35; }
+.letter .number { font: 9pt Georgia, serif; letter-spacing: .15em; color: #845e4d; }
+.letter p { text-align: left; font-size: 11pt; line-height: 2; margin: 4mm 0; }
+.letter .sign { text-align: right; font-size: 9pt; margin-top: 5mm; }
+.qr-block { display: flex; align-items: center; justify-content: center; gap: 5mm; margin-top: 5mm; border-top: 1px solid #b6956b; padding-top: 4mm; font-size: 9pt; }
+.qr-block img { width: 34mm; height: 34mm; padding: 1mm; background: #fff; image-rendering: pixelated; }
+.ticket-tab { display: flex; flex-direction: column; justify-content: center; width: 92mm; height: 40mm; margin: 0 auto; padding: 4mm; text-align: center; background: #f3e5c5; border: 1px dashed #8e614a; }
+.ticket-tab strong { font: 700 23pt Georgia, serif; letter-spacing: .23em; color: #773341; }
+.ticket-tab span { font: 8pt Georgia, serif; letter-spacing: .12em; }
+.fragments { display: grid; grid-template-columns: repeat(2, 86mm); grid-template-rows: repeat(3, 77mm); gap: 6mm; justify-content: center; }
+.fragment { position: relative; display: grid; grid-template-rows: 1fr 1fr; background: #f3e4c4; border: 1px dashed #916e50; }
+.fragment::after { content: "沿虚线剪下；沿中线向背面折"; position: absolute; right: 2mm; top: 1mm; font-size: 6pt; color: #af9070; }
+.fragment-front, .fragment-back { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2mm; text-align: center; }
+.fragment-front { border-bottom: 1px dotted #9b7757; }
+.fragment-front small { font: 8pt Georgia, serif; letter-spacing: .2em; color: #793747; }
+.fragment-front strong { font-size: 14pt; }
+.fragment-back { transform: rotate(180deg); }
+.fragment-back small { font-size: 8pt; }
+.fragment-back strong { font: 700 24pt Georgia, serif; letter-spacing: .12em; color: #793747; }
+.props { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8mm; }
+.prop { min-height: 37mm; padding: 4mm; background: #f3e4c4; border: 1px dashed #916e50; text-align: center; }
+.prop h3 { margin: 2mm 0; font: 700 14pt Georgia, serif; letter-spacing: .08em; color: #793747; }
+.prop p { margin: 2mm 0; font-size: 9pt; }
+.coasters { grid-column: span 2; display: flex; justify-content: space-around; gap: 4mm; }
+.coaster { display: flex; flex-direction: column; justify-content: center; align-items: center; width: 39mm; height: 39mm; border: 1px dashed #916e50; border-radius: 50%; text-align: center; background: #f4e8cb; }
+.coaster strong { font: 700 18pt Georgia, serif; }
+.coaster span { font-size: 8pt; }
+.tags { grid-column: span 2; display: flex; justify-content: space-between; gap: 4mm; }
+.tag { width: 57mm; height: 38mm; display: grid; grid-template-rows: 1fr 1fr; border: 1px dashed #916e50; background: #f4e8cb; text-align: center; }
+.tag div { display: grid; place-items: center; font: 700 12pt Georgia, serif; }
+.tag div + div { border-top: 1px dotted #916e50; transform: rotate(180deg); font: 700 15pt "Noto Serif SC", serif; }
+.uv-card { min-height: 58mm; border: 2px solid #8e614a; background: #fff7e5; }
+.uv-card h3 { font-size: 10pt; }
+.uv-card .blank { height: 34mm; }
+.checklist { margin: 4mm 0; padding-left: 7mm; font-size: 13pt; line-height: 2.1; }
+.checklist li { padding-left: 2mm; }
+.small { font-size: 10pt; color: #765a48; line-height: 1.8; }
+@media print {
+  body { background: white; }
+  .toolbar { display: none; }
+  .sheet { margin: 0; box-shadow: none; padding: 6mm; width: 192mm; min-height: 279mm; }
+  .sheet-title, .sheet-note { display: none; }
+  .sheet:last-child .sheet-title, .sheet:last-child .sheet-note { display: block; }
+  .letter { margin-top: 3mm; }
+}
+</style>
+</head>
+<body>
+<div class="toolbar"><span>打印建议：A4、100% 比例、彩色、关闭页眉页脚；第二页剪下后沿中线折叠。</span><button onclick="window.print()">打印素材</button></div>
+
+<section class="sheet">
+  <h2 class="sheet-title">01 · PERSONALIZED ADMISSION</h2>
+  <p class="sheet-note">将个性化内页放进已购买的霍格沃茨信封。下方登车码小卡与已购买车票一起放在站台房间。</p>
+  <div class="letter cut">
+    <div class="letter-kicker">HOGWARTS · SPECIAL ADMISSION</div>
+    <div class="number">TO IRIS · NO. IRIS-1002</div>
+    <h1>生日特别入学通知书</h1>
+    <p>致 Iris：</p>
+    <p>我们很高兴通知你：10 月 2 日，你已获得霍格沃茨生日特别入学资格。</p>
+    <p>通往魔法世界的入口，就藏在你熟悉的家里。请寻找那座位于九与十之间、却不属于任何整数的站台。</p>
+    <p>收好这封信。列车正等着你。</p>
+    <p class="sign">霍格沃茨生日特别任务办公室</p>
+    <div class="qr-block"><img src="./qr.svg" alt="生日任务二维码"><span>扫描魔法印记<br>打开电子通知书</span></div>
+  </div>
+  <div class="ticket-tab cut"><span>HOGWARTS EXPRESS · BOARDING CODE</span><strong>1002</strong><span>与车票一起放置 · 请在手机输入</span></div>
+</section>
+
+<section class="sheet">
+  <h2 class="sheet-title">02 · SIX MAGICAL FRAGMENTS</h2>
+  <p class="sheet-note">每格是一张可折叠碎片；剪下后沿中线折叠，正面是句子，背面是手机验证印记。</p>
+  <div class="fragments">
+    <div class="fragment"><div class="fragment-front"><small>FRAGMENT Ⅰ</small><strong>真正的咒语</strong></div><div class="fragment-back"><small>魔法印记</small><strong>23</strong></div></div>
+    <div class="fragment"><div class="fragment-front"><small>FRAGMENT Ⅱ</small><strong>不在魔法书里</strong></div><div class="fragment-back"><small>魔法印记</small><strong>41</strong></div></div>
+    <div class="fragment"><div class="fragment-front"><small>FRAGMENT Ⅲ</small><strong>它藏在</strong></div><div class="fragment-back"><small>魔法印记</small><strong>08</strong></div></div>
+    <div class="fragment"><div class="fragment-front"><small>FRAGMENT Ⅳ</small><strong>我们的故事</strong></div><div class="fragment-back"><small>魔法印记</small><strong>57</strong></div></div>
+    <div class="fragment"><div class="fragment-front"><small>FRAGMENT Ⅴ</small><strong>开始的那一天</strong></div><div class="fragment-back"><small>魔法印记</small><strong>62</strong></div></div>
+    <div class="fragment"><div class="fragment-front"><small>FRAGMENT Ⅵ</small><strong>用月日四位写下它</strong></div><div class="fragment-back"><small>魔法印记</small><strong>19</strong></div></div>
+  </div>
+</section>
+
+<section class="sheet">
+  <h2 class="sheet-title">03 · PHYSICAL CLUES</h2>
+  <p class="sheet-note">纸张、透明胶和已有道具即可。密室卡的“门背后”必须由你用隐形笔写，不能普通打印。</p>
+  <div class="props">
+    <div class="prop"><h3>OWL POST</h3><p>MAGICAL DELIVERY · TO IRIS</p></div>
+    <div class="prop"><h3>⑤ · 暂勿开启</h3><p>MINISTRY SEAL · DO NOT OPEN YET</p></div>
+    <div class="coasters">
+      <div class="coaster"><strong>Ⅰ</strong><span>可乐</span></div>
+      <div class="coaster"><strong>Ⅱ</strong><span>蓝色芬达</span></div>
+      <div class="coaster"><strong>Ⅲ</strong><span>橙色芬达</span></div>
+      <div class="coaster"><strong>Ⅳ</strong><span>雪碧</span></div>
+    </div>
+    <div class="tags">
+      <div class="tag"><div>2 GALLEONS</div><div>台</div></div>
+      <div class="tag"><div>5 GALLEONS</div><div>面</div></div>
+      <div class="tag"><div>8 GALLEONS</div><div>下</div></div>
+    </div>
+    <div class="prop uv-card"><h3>THE CHAMBER · 密室隐形卡</h3><div class="blank"></div><p>用隐形笔照亮这里</p></div>
+    <div class="prop"><h3>✦ GOLDEN SNITCH ✦</h3><p>CATCH ME IF YOU CAN</p></div>
+  </div>
+</section>
+
+<section class="sheet">
+  <h2 class="sheet-title">04 · SETUP CHECKLIST</h2>
+  <p class="sheet-note">这一页供布置者使用，不放进游戏现场。</p>
+  <ol class="checklist">
+    <li>入户：已购信封与印章中放入第一页通知书；手机扫描二维码可打开电子版。</li>
+    <li>中下卧室：门口放 9¾ 标识，车票与登车码小卡放在关闭的行李箱外；音乐盒、碎片⑤放箱内，贴⑤号封印。</li>
+    <li>左下卧室：椅子、3D 分院帽、魔法袍、魔杖和徽章依领取顺序摆放。</li>
+    <li>客厅：活点地图第二道折页内放海德薇与碎片①；电视柜藏化妆品和手写信。</li>
+    <li>上中卧室：四杯从左到右依次是可乐、蓝色芬达、橙色芬达、雪碧；碎片②在蓝色杯垫下。</li>
+    <li>厨房：三张价格杯签背面依次是“台”“面”“下”；碎片③贴在靠入口的台面下方干燥处。</li>
+    <li>上中窄卫生间：镜旁卡片用隐形笔写“门背后”；碎片④在门内侧、把手下方的干燥处。</li>
+    <li>客厅窗边：金色信封放飞贼手链和碎片⑥，贴在室内可拿到的窗框上。</li>
+  </ol>
+  <p class="small">测试提示：打印后先扫码、在暗处试隐形笔、逐处确认碎片不会提前被看到。窗边只在室内布置，不需要探出窗外。</p>
+</section>
+</body>
+</html>

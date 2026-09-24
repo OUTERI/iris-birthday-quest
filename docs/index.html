@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#211b22">
+  <meta name="description" content="Iris 的霍格沃茨生日特别任务">
+  <title>Iris · 霍格沃茨生日特别任务</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
+  <link rel="stylesheet" href="./style.css?v=2">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <div class="sky" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="site-frame">
+    <header class="site-header">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">✦</span><span>IRIS <small>· THE BIRTHDAY QUEST</small></span></div>
+      <span class="header-date">02 OCTOBER</span>
+    </header>
+    <main id="app" class="app" aria-live="polite"></main>
+    <footer class="site-footer">
+      <span>Made for Iris, with a little magic.</span>
+      <button id="reset-button" class="quiet-button" type="button">重新开始</button>
+    </footer>
+  </div>
+  <dialog id="reset-dialog" class="reset-dialog">
+    <form method="dialog">
+      <h2>重新开始旅程？</h2>
+      <p>这会清除这台手机保存的进度，回到入学通知书。</p>
+      <div class="dialog-actions">
+        <button value="cancel" class="button button-ghost">继续旅程</button>
+        <button value="confirm" class="button button-primary">重新开始</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>
