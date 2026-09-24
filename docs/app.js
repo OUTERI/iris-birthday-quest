@@ -1,6 +1,6 @@
 "use strict";
 
-const STORAGE_KEY = "iris-birthday-quest-v1";
+const STORAGE_KEY = "iris-birthday-quest-v2";
 const app = document.getElementById("app");
 const resetButton = document.getElementById("reset-button");
 const resetDialog = document.getElementById("reset-dialog");
