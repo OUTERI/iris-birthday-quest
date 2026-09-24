@@ -45,42 +45,42 @@ const missions = [
     prompt: "白日安静，夜里替远方的人捎信；没有邮票，却从不迷路。它是谁？",
     hint: "想想会飞的魔法邮差。",
     reveal: "看看刚展开的活点地图第二道折页。信使留下了一只小挂件和第一枚碎片。",
-    asset: "owl", seal: "23", answers: ["猫头鹰", "海德薇", "owl"], input: "text", placeholder: "输入信使的名字"
+    asset: "owl", seal: "20", answers: ["猫头鹰", "海德薇", "owl"], input: "text", placeholder: "写下信使的名字"
   },
   {
     name: "魔药课", english: "POTIONS CLASS", room: "上中卧室",
     prompt: "夜色是深褐，夕阳是橙，清泉透明。月光在夜色之后、夕阳之前。看看现场从左到右排好的四杯，它是哪一杯？",
     hint: "请看桌上四只杯子的实际颜色与左右顺序。",
     reveal: "月光杯的秘密压在它脚下。看看蓝色饮料的纸杯垫。",
-    asset: "potion", seal: "41", answers: ["蓝色", "蓝", "blue"], input: "color"
+    asset: "potion", seal: "05", answers: ["蓝色", "蓝", "blue"], input: "color"
   },
   {
     name: "三把扫帚", english: "THREE BROOMSTICKS", room: "厨房",
     prompt: "老板把三张杯签弄乱了。按价钱从低到高排列，再读杯签背面的字。藏处是哪三个字？",
     hint: "找标着 2、5、8 的杯签；看背面，不看饮料名字。",
     reveal: "靠近厨房入口的一侧，摸摸台面下方。找到碎片后，不妨休息片刻，喝点东西。",
-    asset: "inn", seal: "08", answers: ["台面下", "柜台下"], input: "text", placeholder: "输入三个字"
+    asset: "inn", seal: "10", answers: ["台面下", "柜台下"], input: "text", placeholder: "写下三个字"
   },
   {
-    name: "密室", english: "CHAMBER OF SECRETS", room: "上中窄卫生间",
-    prompt: "镜边有一张看似空白的卡。用隐形笔的光照亮它。卡上写着哪三个字？",
-    hint: "空白卡在镜旁；按下隐形笔的灯，再照卡片。",
-    reveal: "看看这扇门内侧、把手下方。秘密始终待在干燥处。",
-    asset: "chamber", seal: "57", answers: ["门背后", "门后面"], input: "text", placeholder: "输入隐藏的三个字"
+    name: "密室", english: "CHAMBER OF SECRETS", room: "上中卧室与相邻卫生间",
+    prompt: "魔药课桌旁还留着一张看似空白的卡。用隐形笔的光照亮它。卡上写着要去的地方是哪三个字？",
+    hint: "回上中卧室找空白卡；按下隐形笔的灯，照亮纸面。",
+    reveal: "去上中卧室旁的窄卫生间，查看镜子右下角的干燥位置。",
+    asset: "chamber", seal: "02", answers: ["卫生间", "洗手间", "厕所"], input: "text", placeholder: "写下卡上的地点"
   },
   {
     name: "活点地图", english: "MARAUDER'S MAP", room: "全屋",
     prompt: "从分院大厅出发，回到第一次穿越魔法世界的地方。尚未开启的行李留在哪间房？请点地图。",
     hint: "车票最初放在哪间卧室？看地图下方中间的位置。",
     reveal: "回到 9¾ 站台。现在可以打开贴有⑤号封印的行李箱。",
-    asset: "map", seal: "62", answers: ["station"], input: "map"
+    asset: "map", seal: "24", answers: ["station"], input: "map"
   },
   {
-    name: "金色飞贼", english: "GOLDEN SNITCH", room: "客厅窗边",
-    prompt: "它很小、金色、不愿落地；在屋里仍能看见天空的地方找它。你要去哪里？",
-    hint: "不必走到室外；客厅里哪处能看见天空？",
-    reveal: "去客厅窗框内侧，找金色信封。不必走到室外，也不用探出窗外。",
-    asset: "snitch", seal: "19", answers: ["窗边", "窗户", "客厅窗边", "客厅窗户"], input: "text", placeholder: "输入地点"
+    name: "金色飞贼", english: "GOLDEN SNITCH", room: "阳台",
+    prompt: "它很小、金色、不愿落地；在家里最接近天空的地方找它。你要去哪里？",
+    hint: "看地图最下方，客厅外连接着哪里？",
+    reveal: "去阳台靠客厅门的一侧，找金色信封；不用靠近栏杆。",
+    asset: "snitch", seal: "11", answers: ["阳台", "客厅阳台", "露台"], input: "text", placeholder: "写下地点"
   }
 ];
 
@@ -150,17 +150,26 @@ function scene(copy, art = "", options = {}) {
     "scene", "magic-in",
     options.single ? "scene--single" : "",
     options.letter ? "scene--letter" : "",
-    options.night ? "scene--night" : ""
+    options.night ? "scene--night" : "",
+    options.theme ? "scene--mission" : "",
+    options.theme ? `scene--${options.theme}` : ""
   ].filter(Boolean).join(" ");
   return `<section class="${classes}"><div class="scene-copy">${copy}</div>${art ? `<div class="scene-art ${options.smallArt ? "scene-art--small" : ""}">${art}</div>` : ""}</section>`;
 }
 
 function form(type, label, placeholder, short = false, extra = "") {
-  return `<form data-form="${type}" novalidate>
-    <label class="story" for="${type}-input">${label}</label>
-    <div class="input-row">
-      <input id="${type}-input" class="text-input ${short ? "text-input--short" : ""}" name="answer" type="text" placeholder="${placeholder}" autocomplete="off" ${extra} required>
-      <button class="button button-primary" type="submit">确认咒语</button>
+  const mode = type === "mission-answer" ? "riddle" : type;
+  const quill = '<svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M6 26c7-1 15-8 20-21-11 3-19 11-20 21Zm0 0 11-12M11 21l7 1M16 16l6 1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const icon = { ticket: "9¾", riddle: quill, seal: "✦", date: "♡" }[mode];
+  const action = { ticket: "检票登车", riddle: "揭开线索", seal: "验证印记", date: "施放咒语" }[mode];
+  return `<form class="spell-form spell-form--${mode}" data-form="${type}" novalidate>
+    <label class="field-label" for="${type}-input">${label}</label>
+    <div class="entry-line">
+      <div class="entry-shell"><span class="entry-icon" aria-hidden="true">${icon}</span>
+        <input id="${type}-input" class="text-input ${short ? "text-input--short" : ""}" name="answer" type="text" placeholder="${placeholder}" autocomplete="off" ${extra} required>
+        ${mode === "date" ? '<span class="entry-suffix" aria-hidden="true">月 / 日</span>' : ""}
+      </div>
+      <button class="button button-primary" type="submit">${action}</button>
     </div>
     <p id="feedback" class="feedback" role="status"></p>
   </form>`;
@@ -173,7 +182,7 @@ function hint(text) {
 function progress() {
   return `<div class="progress" aria-label="六项任务进度">
     <span class="progress-label">MAGICAL FRAGMENTS</span>
-    ${missions.map((_, index) => `<span class="progress-dot ${index < state.mission ? "done" : index === state.mission ? "current" : ""}" aria-label="碎片${index + 1}${index < state.mission ? "已取得" : ""}">${index < state.mission ? "✦" : index + 1}</span>`).join("")}
+    ${missions.map((_, index) => `<span class="progress-dot ${index < state.mission ? "done" : index === state.mission ? "current" : ""}" aria-label="碎片${index + 1}${index < state.mission ? "已取得" : ""}"><span>${index < state.mission ? "✦" : index + 1}</span></span>`).join("")}
   </div>`;
 }
 
@@ -222,7 +231,7 @@ function renderSorting() {
     <h1 class="scene-title">分院帽正在倾听</h1>
     <p class="story">请坐在椅子上，轻触面前的分院帽，再回答它的问题。</p>
     <p class="lead">${q.prompt}</p>
-    <div class="choice-list">${q.options.map((choice, index) => `<button type="button" class="choice" data-choice="${index}">${choice}</button>`).join("")}</div>
+    <div class="choice-list choice-list--sorting">${q.options.map((choice, index) => `<button type="button" class="choice sorting-choice" data-choice="${index}"><span class="choice-index" aria-hidden="true">0${index + 1}</span><span>${choice}</span><span class="choice-spark" aria-hidden="true">✦</span></button>`).join("")}</div>
   `, asset("hat", "分院帽线描"), { night: true, smallArt: true });
 }
 
@@ -272,18 +281,23 @@ function renderMapIntro() {
 
 function answerControls(mission) {
   if (mission.input === "color") {
-    return `<div class="choice-list" role="group" aria-label="选择魔药杯颜色">
-      ${["深褐色", "蓝色", "橙色", "透明"].map(value => `<button type="button" class="choice" data-mission-answer="${value}">${value}</button>`).join("")}
+    return `<div class="potion-choices" role="group" aria-label="选择魔药杯颜色">
+      ${["深褐色", "蓝色", "橙色", "透明"].map((value, index) => `<button type="button" class="potion-choice potion-choice--${index + 1}" data-mission-answer="${value}"><span class="potion-vial" aria-hidden="true"><i></i></span><span class="potion-label"><small>0${index + 1}</small>${value}</span></button>`).join("")}
     </div><p id="feedback" class="feedback" role="status"></p>`;
   }
   if (mission.input === "map") {
-    return `<div class="map-wrap">
-      ${asset("map", "房间位置简图：上中魔药课，左下分院厅，中下站台，右侧客厅")}
-      <button class="map-room a" type="button" data-map-answer="potion">魔药课</button>
-      <button class="map-room b" type="button" data-map-answer="sorting">分院厅</button>
-      <button class="map-room c" type="button" data-map-answer="station">9¾ 站台</button>
-      <button class="map-room kitchen" type="button" data-map-answer="kitchen">厨房</button>
-      <button class="map-room living" type="button" data-map-answer="living">客厅</button>
+    return `<div class="map-frame"><div class="map-heading"><span>活点地图</span><span>轻触房间</span></div>
+      <div class="map-board" role="group" aria-label="房间相对位置图：上排卫生间、魔药课、窄卫生间、厨房；下排分院厅、站台、客厅；最下方阳台">
+        <button class="map-place map-place--bath" type="button" data-map-answer="bath" aria-label="左上卫生间">卫生间</button>
+        <button class="map-place map-place--potion" type="button" data-map-answer="potion">魔药课<small>上中卧室</small></button>
+        <button class="map-place map-place--chamber" type="button" data-map-answer="chamber" aria-label="上中窄卫生间">密室</button>
+        <button class="map-place map-place--kitchen" type="button" data-map-answer="kitchen">厨房</button>
+        <span class="map-corridor" aria-hidden="true">· · · ✦ · · ·</span>
+        <button class="map-place map-place--sorting" type="button" data-map-answer="sorting">分院厅<small>左下卧室</small></button>
+        <button class="map-place map-place--station" type="button" data-map-answer="station">9¾ 站台<small>中下卧室</small></button>
+        <button class="map-place map-place--living" type="button" data-map-answer="living">客厅</button>
+        <button class="map-place map-place--balcony" type="button" data-map-answer="balcony">阳台</button>
+      </div>
     </div><p id="feedback" class="feedback" role="status"></p>`;
   }
   return form("mission-answer", "把解出的答案告诉手机", mission.placeholder || "输入答案");
@@ -293,7 +307,7 @@ function renderMission() {
   const mission = missions[state.mission];
   const chapter = Math.floor(state.mission / 2) + 1;
   const within = (state.mission % 2) + 1;
-  const common = `${progress()}<p class="eyebrow">ACT ${chapter} · TASK ${within} / 2 · ${mission.english}</p>`;
+  const common = `${progress()}<p class="eyebrow">第${["一", "二", "三"][chapter - 1]}幕 · 第 ${within} 关 / 2 · ${mission.english}</p>`;
   if (!state.solved) {
     return scene(`
       ${common}
@@ -302,7 +316,7 @@ function renderMission() {
       <p class="lead">${mission.prompt}</p>
       ${answerControls(mission)}
       ${hint(mission.hint)}
-    `, mission.input === "map" ? "" : asset(mission.asset, `${mission.name}线描`), { single: mission.input === "map" });
+    `, mission.input === "map" ? "" : asset(mission.asset, `${mission.name}线描`), { single: mission.input === "map", theme: mission.asset });
   }
   return scene(`
     ${common}
@@ -310,7 +324,7 @@ function renderMission() {
     <div class="quote">${mission.reveal}</div>
     <p class="story">找到礼物与第 ${state.mission + 1} 枚纸质碎片。碎片背面有两位魔法印记；输入它，地图才会继续展开。</p>
     ${form("seal", "碎片背面的两位魔法印记", "00", true, 'inputmode="numeric" maxlength="2"')}
-  `, asset(mission.asset, `${mission.name}线描`), { smallArt: true });
+  `, asset(mission.asset, `${mission.name}线描`), { smallArt: true, theme: mission.asset });
 }
 
 function renderInterlude() {
