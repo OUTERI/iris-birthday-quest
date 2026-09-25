@@ -1,0 +1,305 @@
+/* A small motion vocabulary: paper opens, ink appears, objects answer touch. */
+:root {
+  --bronze: #a87948;
+  --foil: #e7c486;
+  --deep-ink: #1c1a23;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 50% -18%, rgba(132, 86, 65, .26), transparent 46%),
+    radial-gradient(circle at 9% 63%, rgba(76, 55, 80, .24), transparent 30%),
+    radial-gradient(circle at 93% 74%, rgba(113, 71, 55, .22), transparent 34%),
+    linear-gradient(140deg, #181922, #11141b 60%, #201923);
+}
+.site-header { border-bottom: 1px solid rgba(232, 192, 125, .53); }
+.site-header::after {
+  content: "✧";
+  order: 1;
+  margin-left: auto;
+  color: #bb9463;
+  font: 17px Cinzel, Georgia, serif;
+}
+.header-date { order: 2; margin-left: 5px; background: rgba(208, 169, 100, .045); }
+.scene {
+  border-color: #c59d64;
+  box-shadow: 0 37px 94px rgba(0, 0, 0, .6), 0 0 0 1px rgba(247, 208, 138, .12),
+    inset 0 0 0 7px rgba(65, 37, 28, .07), inset 0 0 0 9px rgba(170, 112, 59, .2);
+}
+.scene--night {
+  box-shadow: 0 40px 100px rgba(0, 0, 0, .65), 0 0 0 1px rgba(238, 190, 110, .13),
+    inset 0 0 0 9px rgba(218, 167, 91, .065);
+}
+.scene-title { text-wrap: balance; }
+.button {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-color: rgba(255, 231, 177, .22);
+}
+.button::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 245, 207, .25) 49%, transparent 68%);
+  transform: translateX(-115%);
+  pointer-events: none;
+}
+.button:hover::after, .button:focus-visible::after { transform: translateX(115%); transition: transform .65s ease; }
+.button-primary {
+  background: linear-gradient(135deg, #512531, #833b48 51%, #5e2b37);
+  box-shadow: 0 5px 0 #321b25, inset 0 1px rgba(255, 230, 179, .22);
+}
+.button-gold {
+  color: #34251f;
+  background: linear-gradient(125deg, #b8874d, #f0d397 49%, #b9884b);
+  box-shadow: 0 5px 0 #795339, inset 0 1px rgba(255,255,255,.38);
+}
+.scene--mission .scene-copy {
+  background:
+    radial-gradient(circle at 10% 7%, rgba(255, 246, 218, .6), transparent 48%),
+    repeating-linear-gradient(21deg, transparent 0 10px, rgba(63, 39, 24, .025) 11px 12px),
+    linear-gradient(145deg, rgba(225, 207, 170, .98), rgba(203, 174, 129, .96));
+  box-shadow: 0 24px 44px rgba(15, 18, 24, .38), inset 0 0 0 5px rgba(255, 240, 197, .12);
+}
+.scene--mission .lead { background: rgba(255, 242, 207, .68); }
+.scene--mission .scene-copy::after {
+  content: "✦";
+  position: absolute;
+  right: 21px;
+  bottom: 10px;
+  color: color-mix(in srgb, var(--mission-accent) 55%, transparent);
+  font: 17px Cinzel, Georgia, serif;
+  pointer-events: none;
+}
+.scene--solved .scene-copy {
+  background: linear-gradient(145deg, #ebd9ad, #ceb184);
+}
+.quest-zone { background: rgba(255, 242, 208, .64); }
+.spell-form { background-color: rgba(228, 206, 165, .66); }
+.entry-shell { background: rgba(255, 248, 222, .87); }
+.entry-shell:focus-within {
+  border-bottom-color: var(--mission-accent, #783747);
+  box-shadow: 0 0 0 2px rgba(255, 232, 178, .75), 0 0 22px rgba(177, 120, 59, .24);
+}
+.hint-button:hover, .quiet-button:hover { color: #f0cd8d; }
+.scene--mission .hint-button:hover { color: var(--mission-accent); }
+
+/* The admission letter has its own calm reveal rather than a looping effect. */
+.scene--letter {
+  background:
+    linear-gradient(133deg, transparent 0 47%, rgba(117, 73, 42, .12) 48% 49%, transparent 50%) top / 100% 180px no-repeat,
+    radial-gradient(circle at 52% 23%, rgba(255, 248, 213, .72), transparent 60%),
+    linear-gradient(125deg, #ead7ae, #c7a77c);
+}
+.scene--letter::before, .scene--letter::after { border-color: rgba(106, 65, 46, .4); }
+.scene--letter .scene-copy { width: 100%; }
+.scene--letter .seal {
+  border: 2px solid rgba(255, 224, 166, .63);
+  box-shadow: inset 0 0 0 5px rgba(238, 202, 153, .2), inset 0 0 0 7px #7c2e39,
+    0 10px 20px rgba(62, 39, 27, .34), 0 0 0 8px rgba(129, 60, 58, .12);
+}
+.letter-translation { border-color: rgba(86, 53, 40, .42); }
+.letter-translation summary:hover { color: #612937; }
+.scene--castle { background-position: center, 55% center, center; }
+
+/* Each room has one visual signature, leaving the answers readable. */
+.scene--owl .scene-art::after { content: "✉"; font-size: 29px; }
+.scene--owl .hedwig-art { filter: drop-shadow(0 16px 20px rgba(8, 21, 40, .56)); }
+.scene--potion .scene-art::after { content: "☾"; color: #b7e6ef; font-size: 38px; }
+.scene--potion .scene-art::before {
+  border-color: rgba(142, 213, 232, .46);
+  box-shadow: 0 0 0 15px rgba(91, 172, 193, .07), 0 0 38px rgba(74, 164, 196, .22);
+}
+.potion-choice {
+  background: linear-gradient(150deg, rgba(245, 241, 220, .96), rgba(209, 219, 203, .81));
+  box-shadow: inset 0 1px rgba(255,255,255,.7), 0 6px 12px rgba(66, 48, 34, .13);
+}
+.potion-choice--2 { border-color: #397e9f; }
+.potion-choice--2 .potion-vial { box-shadow: 0 0 18px rgba(84, 179, 215, .39), inset 5px 0 rgba(255,255,255,.33); }
+.potion-vial::after {
+  content: "✦";
+  position: absolute;
+  left: 13px;
+  top: 24px;
+  color: rgba(255,255,255,.87);
+  font-size: 12px;
+  opacity: .8;
+}
+.scene--inn .scene-art::after { content: "✦"; color: #ffce80; }
+.scene--inn .quest-ornament { background: rgba(107, 51, 35, .08); }
+.scene--chamber .scene-art::after { content: "ᚹ"; color: #b7e3b9; font-size: 31px; }
+.scene--chamber .quest-ornament { letter-spacing: .18em; }
+.scene--map .map-frame { background: linear-gradient(135deg, #ead2a0, #b99361); }
+.scene--map .map-board { box-shadow: 0 0 0 5px rgba(255, 241, 201, .23); }
+.scene--snitch .scene-art::after { content: "✧"; color: #ffe5a3; font-size: 33px; }
+.scene--snitch .scene-art::before {
+  border-color: rgba(247, 208, 119, .58);
+  box-shadow: 0 0 0 14px rgba(237, 194, 97, .06), 0 0 36px rgba(243, 194, 91, .3);
+}
+
+/* Sorting is the one large reveal in the story. */
+.scene--hall .scene-art::before { box-shadow: 0 0 0 15px rgba(229, 178, 100, .05), 0 0 52px rgba(222, 155, 78, .13); }
+.sorting-choice {
+  position: relative;
+  background: linear-gradient(125deg, rgba(25, 19, 29, .76), rgba(96, 52, 51, .25));
+  box-shadow: inset 0 1px rgba(245, 214, 158, .1);
+}
+.sorting-choice:hover, .sorting-choice:focus-visible { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,.18), inset 0 0 0 1px rgba(235,196,126,.5); }
+.scene--reveal { background-position: center, center; }
+.scene--reveal .house-emblem { box-shadow: 0 0 0 5px rgba(236, 199, 128, .13), 0 19px 35px rgba(0, 0, 0, .48); }
+.portrait-frame { box-shadow: 0 25px 55px rgba(0, 0, 0, .6), 0 0 0 5px rgba(221, 167, 89, .11), inset 0 0 0 5px rgba(235, 197, 129, .25); }
+.reveal-house { text-shadow: 0 0 28px rgba(251, 195, 91, .5); }
+
+/* A folded map still works as a normal details element without animation. */
+.atlas-dock summary {
+  background: linear-gradient(110deg, #2b222b, #352630 52%, #382d2d);
+  box-shadow: inset 0 0 0 5px rgba(212, 174, 113, .065), 0 15px 26px rgba(0,0,0,.22);
+}
+.atlas-dock[open] summary { border-bottom-color: rgba(185, 142, 89, .48); }
+.atlas-sheet { transform-origin: top center; box-shadow: inset 0 13px 15px rgba(89, 53, 30, .1); }
+.atlas-grid {
+  background: #6b4832;
+  box-shadow: 0 0 0 5px rgba(117, 73, 39, .12), inset 0 2px 10px rgba(30, 20, 18, .24);
+}
+.atlas-place.is-current { box-shadow: 0 0 0 3px rgba(247, 205, 115, .47), 0 0 24px rgba(242, 193, 99, .7); }
+.atlas-corridor { overflow: hidden; }
+.atlas-corridor::after { content: "· · ✦ · ·"; margin-left: 10px; opacity: .65; }
+
+/* A short spell transition changes color for travel, discovery, seals, and finale. */
+.spell-overlay {
+  --spell-color: #e9bd77;
+  background: radial-gradient(circle at 50% 50%, rgba(87, 57, 74, .82), #10121a 68%);
+}
+.spell-overlay[data-kind="ticket"] { --spell-color: #c4dcdb; }
+.spell-overlay[data-kind="seal"] { --spell-color: #efc288; }
+.spell-overlay[data-kind="finale"] { --spell-color: #f3d7a0; }
+.spell-overlay__ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(83vw, 440px);
+  aspect-ratio: 1;
+  border: 1px solid var(--spell-color);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+.spell-overlay__ring--one { border-style: dashed; }
+.spell-overlay__ring--two { width: min(63vw, 335px); border-color: rgba(255, 235, 189, .48); }
+.spell-overlay__sigil {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 42%;
+  color: var(--spell-color);
+  font: clamp(43px, 13vw, 85px) Cinzel, Georgia, serif;
+  line-height: 1;
+  text-shadow: 0 0 30px var(--spell-color);
+  opacity: 0;
+}
+.spell-overlay[data-kind="ticket"] .spell-overlay__sigil::first-letter { color: #d6f1eb; }
+.spell-overlay__message { margin-top: 110px; color: #fff0cb; }
+.spell-overlay__subline {
+  position: relative;
+  z-index: 3;
+  margin-top: 12px;
+  color: var(--spell-color);
+  font: 600 11px Cinzel, Georgia, serif;
+  letter-spacing: .2em;
+  text-align: center;
+  opacity: 0;
+}
+.spell-overlay.is-active .spell-overlay__ring--one { animation: spell-ring .78s cubic-bezier(.13,.73,.24,1) both; }
+.spell-overlay.is-active .spell-overlay__ring--two { animation: spell-ring .69s .1s cubic-bezier(.13,.73,.24,1) both; }
+.spell-overlay.is-active .spell-overlay__sigil { animation: spell-sigil .8s ease-out both; }
+.spell-overlay.is-active .spell-overlay__subline { animation: spell-subline .77s .12s ease-out both; }
+.is-miscast .entry-shell, .is-miscast .potion-choices, .is-miscast .map-frame { animation: miscast .37s ease-in-out; }
+
+@keyframes spell-ring {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(.54) rotate(-20deg); }
+  32% { opacity: .48; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.15) rotate(12deg); }
+}
+@keyframes spell-sigil {
+  0% { opacity: 0; transform: translate(-50%, -25%) scale(.65); }
+  28%, 65% { opacity: .93; }
+  100% { opacity: 0; transform: translate(-50%, -68%) scale(1.15); }
+}
+@keyframes spell-subline {
+  0%, 100% { opacity: 0; transform: translateY(9px); }
+  30%, 83% { opacity: 1; transform: translateY(0); }
+}
+@keyframes miscast {
+  25% { transform: translateX(4px); }
+  55% { transform: translateX(-4px); }
+  85% { transform: translateX(2px); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .scene.magic-in { animation: stage-arrive .65s cubic-bezier(.17,.72,.25,1) both; }
+  .scene-copy > .eyebrow, .scene-copy > .progress, .scene-copy > .letter-head { animation: ink-rise .5s .08s both; }
+  .scene-copy > .scene-title, .scene-copy > .letter-script-title { animation: ink-rise .55s .15s both; }
+  .scene-copy > .lead, .scene-copy > .letter-text { animation: ink-rise .55s .24s both; }
+  .scene-art img { animation: artifact-enter .72s .12s both; }
+  .scene--letter .seal { animation: wax-enter .8s .08s both; }
+  .scene--letter .letter-salutation { animation: ink-rise .58s .18s both; }
+  .scene--letter .letter-sign, .scene--letter .letter-translation, .scene--letter .button-row { animation: ink-rise .58s .35s both; }
+  .scene--owl .scene-art img { animation: artifact-enter .7s .12s both, owl-breathe 5.8s 1s ease-in-out infinite; }
+  .scene--owl .scene-art::after { animation: little-star 3.6s 1s ease-in-out infinite; }
+  .scene--potion .scene-art::after { animation: moon-glow 4s ease-in-out infinite; }
+  .scene--potion .potion-vial::after { animation: bubble-rise 3.1s ease-in-out infinite; }
+  .scene--potion .potion-choice:nth-child(2) .potion-vial::after { animation-delay: .6s; }
+  .scene--inn .quest-ornament span { animation: coin-rise .46s both; }
+  .scene--inn .quest-ornament span:nth-child(2) { animation-delay: .13s; }
+  .scene--inn .quest-ornament span:nth-child(3) { animation-delay: .26s; }
+  .scene--chamber .quest-ornament span { animation: rune-appear .48s both; }
+  .scene--chamber .quest-ornament span:nth-child(2) { animation-delay: .16s; }
+  .scene--chamber .quest-ornament span:nth-child(3) { animation-delay: .32s; }
+  .scene--map .map-place { animation: map-room-rise .42s both; }
+  .scene--map .map-place:nth-child(2) { animation-delay: .09s; }
+  .scene--map .map-place:nth-child(3) { animation-delay: .16s; }
+  .scene--map .map-place:nth-child(n+4) { animation-delay: .24s; }
+  .scene--snitch .scene-art img { animation: snitch-arrive .8s both, snitch-hover 4.8s .8s ease-in-out infinite; }
+  .scene--reveal .house-emblem { animation: crest-reveal .75s .15s both; }
+  .scene--reveal .portrait-frame { animation: portrait-reveal .84s .5s both; }
+  .scene--reveal .reveal-house { animation: ink-rise .6s .38s both; }
+  .atlas-dock[open] .atlas-sheet { animation: paper-unfold .55s cubic-bezier(.16,.77,.22,1) both; }
+  .atlas-dock[open] .atlas-grid { animation: ink-rise .5s .18s both; }
+  .atlas-dock[open] .atlas-place.is-current { animation: map-room-rise .45s .25s both; }
+  .atlas-dock[open] .atlas-corridor::after { animation: ink-rise .6s .36s both; }
+}
+@keyframes stage-arrive { from { opacity: 0; transform: translateY(11px) scale(.99); } to { opacity: 1; transform: none; } }
+@keyframes ink-rise { from { opacity: 0; transform: translateY(11px); } to { opacity: 1; transform: none; } }
+@keyframes artifact-enter { from { opacity: 0; transform: translateY(14px) scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes wax-enter { from { opacity: 0; transform: rotate(-28deg) scale(.62); } to { opacity: 1; transform: rotate(-12deg) scale(1); } }
+@keyframes owl-breathe { 50% { transform: translateY(-7px) rotate(1deg); } }
+@keyframes little-star { 50% { opacity: .4; transform: translateY(-6px); } }
+@keyframes moon-glow { 50% { opacity: .45; transform: scale(1.18); } }
+@keyframes bubble-rise { 0%, 100% { opacity: .2; transform: translateY(9px) scale(.7); } 50% { opacity: .95; transform: translateY(-10px) scale(1); } }
+@keyframes coin-rise { from { opacity: 0; transform: translateY(10px) rotate(-18deg); } to { opacity: 1; transform: none; } }
+@keyframes rune-appear { from { opacity: 0; transform: scale(.62); } to { opacity: 1; transform: scale(1); } }
+@keyframes map-room-rise { from { opacity: .15; transform: translateY(7px); } to { opacity: 1; transform: none; } }
+@keyframes snitch-arrive { from { opacity: 0; transform: translate(22px, -26px) rotate(-24deg) scale(.72); } to { opacity: 1; transform: rotate(-12deg); } }
+@keyframes snitch-hover { 50% { transform: translate(-9px, -10px) rotate(-5deg); } }
+@keyframes crest-reveal { from { opacity: 0; transform: translateY(-13px) scale(.84); } to { opacity: 1; transform: none; } }
+@keyframes portrait-reveal { from { opacity: 0; transform: translateY(21px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes paper-unfold { from { opacity: .35; transform: perspective(750px) rotateX(-15deg) scaleY(.9); } to { opacity: 1; transform: perspective(750px) rotateX(0) scaleY(1); } }
+
+@media (max-width: 760px) {
+  .site-header::after { display: none; }
+  .scene--mission .scene-copy { background: linear-gradient(145deg, rgba(225, 207, 170, .97), rgba(205, 177, 134, .97)); }
+  .scene--letter { background: radial-gradient(circle at 50% 13%, #f2e1b8, transparent 65%), linear-gradient(145deg, #e3cda3, #c3a273); }
+  .spell-overlay__message { max-width: 88vw; }
+  .spell-overlay__subline { max-width: 90vw; font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene.magic-in, .scene-copy > *, .scene-art img, .scene--letter .seal,
+  .scene--reveal .house-emblem, .scene--reveal .portrait-frame,
+  .atlas-dock[open] .atlas-sheet, .atlas-dock[open] .atlas-grid,
+  .atlas-dock[open] .atlas-place.is-current, .is-miscast .entry-shell,
+  .is-miscast .potion-choices, .is-miscast .map-frame { animation: none !important; }
+  .spell-overlay__ring, .spell-overlay__sigil { display: none; }
+  .spell-overlay__subline { opacity: 1; }
+}

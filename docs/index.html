@@ -8,7 +8,8 @@
   <title>Iris · 霍格沃茨生日特别任务</title>
   <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
   <link rel="stylesheet" href="./style.css?v=6">
-  <script src="./app.js?v=6" defer></script>
+  <link rel="stylesheet" href="./cinematic.css?v=1">
+  <script src="./app.js?v=7" defer></script>
 </head>
 <body>
   <div class="sky" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -35,9 +36,13 @@
   </dialog>
   <div id="spell-overlay" class="spell-overlay" role="status" aria-live="polite" hidden>
     <span class="spell-overlay__halo" aria-hidden="true"></span>
+    <span class="spell-overlay__ring spell-overlay__ring--one" aria-hidden="true"></span>
+    <span class="spell-overlay__ring spell-overlay__ring--two" aria-hidden="true"></span>
     <svg class="spell-overlay__wand" viewBox="0 0 260 260" fill="none" aria-hidden="true"><path d="M43 219 174 86" stroke="#3b2530" stroke-width="17" stroke-linecap="round"/><path d="M55 207 174 86" stroke="#bf8755" stroke-width="6" stroke-linecap="round"/><path d="m164 95 27-28" stroke="#f5d78e" stroke-width="4" stroke-linecap="round"/><path d="m194 48 4 14 14 4-14 4-4 14-4-14-14-4 14-4 4-14Z" fill="#ffe7ac"/><circle cx="194" cy="66" r="26" stroke="#e6bc73" stroke-opacity=".6"/></svg>
     <span class="spell-overlay__spark spell-overlay__spark--a" aria-hidden="true">✦</span><span class="spell-overlay__spark spell-overlay__spark--b" aria-hidden="true">✧</span><span class="spell-overlay__spark spell-overlay__spark--c" aria-hidden="true">✦</span>
+    <span class="spell-overlay__sigil" aria-hidden="true">✧</span>
     <strong class="spell-overlay__message"></strong>
+    <small class="spell-overlay__subline"></small>
   </div>
 </body>
 </html>

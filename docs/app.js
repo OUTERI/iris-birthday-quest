@@ -155,13 +155,20 @@ function update(changes) {
   window.scrollTo({ top: 0, behavior: "auto" });
 }
 
-function castSpell(changes, message) {
+function castSpell(changes, message, kind = "discovery") {
   if (transitioning) return;
   transitioning = true;
   state = { ...state, ...changes };
   save();
   const overlay = document.getElementById("spell-overlay");
+  overlay.dataset.kind = kind;
   overlay.querySelector(".spell-overlay__message").textContent = message;
+  overlay.querySelector(".spell-overlay__subline").textContent = {
+    ticket: "THE JOURNEY BEGINS",
+    discovery: "REVELIO · A CLUE APPEARS",
+    seal: "A FRAGMENT RETURNS TO THE MAP",
+    finale: "THE LAST PAGE IS READY"
+  }[kind];
   overlay.hidden = false;
   overlay.classList.remove("is-active");
   void overlay.offsetWidth;
@@ -515,6 +522,11 @@ function showFeedback(message) {
     feedback.classList.remove("feedback--pulse");
     void feedback.offsetWidth;
     feedback.classList.add("feedback--pulse");
+    const scene = feedback.closest(".scene");
+    scene?.classList.remove("is-miscast");
+    void scene?.offsetWidth;
+    scene?.classList.add("is-miscast");
+    window.setTimeout(() => scene?.classList.remove("is-miscast"), 500);
   }
 }
 
@@ -612,7 +624,7 @@ app.addEventListener("submit", event => {
   }
   switch (formElement.dataset.form) {
     case "ticket":
-      if (normalize(value) === "1002") castSpell({ phase: "train" }, "车票已点亮");
+      if (normalize(value) === "1002") castSpell({ phase: "train" }, "车票已点亮", "ticket");
       else showFeedback("登车码还不对，请看随票小卡。");
       break;
     case "mission-answer":
@@ -623,13 +635,13 @@ app.addEventListener("submit", event => {
         const next = state.mission + 1;
         castSpell(next === missions.length
           ? { mission: next, solved: false, phase: "finale" }
-          : { mission: next, solved: false, phase: next === 2 || next === 4 ? "interlude" : "mission" }, "魔法印记已归位");
+          : { mission: next, solved: false, phase: next === 2 || next === 4 ? "interlude" : "mission" }, "魔法印记已归位", "seal");
       } else {
         showFeedback("印记未被识别。请看当前碎片背面的两位数字。");
       }
       break;
     case "date":
-      if (normalize(value) === "1111") castSpell({ phase: "gift" }, "最后的咒语生效了");
+      if (normalize(value) === "1111") castSpell({ phase: "gift" }, "最后的咒语生效了", "finale");
       else showFeedback("咒语还没有生效。请按月日四位，再看看六张碎片。");
       break;
   }
