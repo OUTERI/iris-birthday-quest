@@ -145,12 +145,18 @@ function asset(name, alt) {
   return `<img src="./assets/${name}.svg" alt="${alt}">`;
 }
 
+function photo(name, alt, className = "") {
+  return `<img class="${className}" src="./assets/${name}.png" alt="${alt}">`;
+}
+
 function scene(copy, art = "", options = {}) {
   const classes = [
     "scene", "magic-in",
     options.single ? "scene--single" : "",
     options.letter ? "scene--letter" : "",
     options.night ? "scene--night" : "",
+    options.visual ? `scene--${options.visual}` : "",
+    options.variant ? `scene--${options.variant}` : "",
     options.theme ? "scene--mission" : "",
     options.theme ? `scene--${options.theme}` : ""
   ].filter(Boolean).join(" ");
@@ -211,7 +217,7 @@ function renderTicket() {
     <p class="story">找到写着 9¾ 的房间。在那里拿到霍格沃茨特快车票，并查看随票小卡上的四位登车码。</p>
     ${form("ticket", "车票上的登车码", "四位数字", true, 'inputmode="numeric" maxlength="4"')}
     ${hint("站台是中下卧室；登车码就在车票旁的小卡上。")}
-  `, asset("train", "霍格沃茨特快列车线描"));
+  `, asset("train", "霍格沃茨特快列车线描"), { visual: "castle" });
 }
 
 function renderTrain() {
@@ -232,7 +238,7 @@ function renderSorting() {
     <p class="story">请坐在椅子上，轻触面前的分院帽，再回答它的问题。</p>
     <p class="lead">${q.prompt}</p>
     <div class="choice-list choice-list--sorting">${q.options.map((choice, index) => `<button type="button" class="choice sorting-choice" data-choice="${index}"><span class="choice-index" aria-hidden="true">0${index + 1}</span><span>${choice}</span><span class="choice-spark" aria-hidden="true">✦</span></button>`).join("")}</div>
-  `, asset("hat", "分院帽线描"), { night: true, smallArt: true });
+  `, asset("hat", "分院帽线描"), { night: true, smallArt: true, visual: "hall" });
 }
 
 function renderSortingResponse() {
@@ -242,18 +248,27 @@ function renderSortingResponse() {
     <h1 class="scene-title">嗯……</h1>
     <p class="lead">${questions[answered].response}</p>
     <div class="button-row"><button class="button button-gold" data-action="next-question">${state.question < questions.length ? "听下一个问题" : "听听分院结果"}</button></div>
-  `, asset("hat", "正在思考的分院帽"), { night: true, smallArt: true });
+  `, asset("hat", "正在思考的分院帽"), { night: true, smallArt: true, visual: "hall" });
 }
 
 function renderReveal() {
   return scene(`
     <p class="eyebrow">THE HAT HAS DECIDED</p>
-    <p class="story">好奇……真诚……勇气……</p>
-    <p class="lead">谨慎，也不妨碍你为重要的人向前一步。</p>
-    <div class="reveal-house">GRYFFINDOR<span>格 兰 芬 多</span></div>
-    <p class="story">欢迎你，Iris。你的学院，正在等你。</p>
+    <div class="reveal-layout">
+      <div class="reveal-message">
+        ${photo("gryffindor-emblem", "格兰芬多学院院徽", "house-emblem")}
+        <p class="story">好奇……真诚……勇气……</p>
+        <p class="lead">谨慎，也不妨碍你为重要的人向前一步。</p>
+        <div class="reveal-house">GRYFFINDOR<span>格 兰 芬 多</span></div>
+        <p class="story">欢迎你，Iris。你的学院，正在等你。</p>
+      </div>
+      <figure class="portrait-frame">
+        ${photo("iris-portrait", "身穿格兰芬多学院服装的 Iris 人像", "iris-portrait")}
+        <figcaption>IRIS · GRYFFINDOR</figcaption>
+      </figure>
+    </div>
     <div class="button-row"><button class="button button-gold" data-action="start-gear">领取属于你的装备</button></div>
-  `, asset("crest", "原创红金狮子学院纹章"), { night: true });
+  `, "", { single: true, night: true, visual: "hall", variant: "reveal" });
 }
 
 function renderGear() {
@@ -265,7 +280,7 @@ function renderGear() {
     <div class="equipment-list">${equipment.map((step, index) => `<span class="equipment-step ${index < state.gear ? "done" : index === state.gear ? "active" : ""}">${step.name}</span>`).join("")}</div>
     <p class="story">装备都在分院大厅。领取后，再请手机带你前往下一步。</p>
     <div class="button-row"><button class="button button-primary" data-action="next-gear">${item.button}</button></div>
-  `, asset("crest", "格兰芬多红金狮子纹章"), { smallArt: true });
+  `, photo("gryffindor-emblem", "格兰芬多学院院徽"), { smallArt: true, visual: "castle" });
 }
 
 function renderMapIntro() {
@@ -348,7 +363,7 @@ function renderFinale() {
     <p class="story">将那个日子的月日写成四位数字。前两位是月份，后两位是日期。</p>
     ${form("date", "输入最后的咒语", "MMDD", true, 'inputmode="numeric" maxlength="4"')}
     ${hint("想想我们的故事是从哪一天开始的，不是今天的生日。")}
-  `, asset("crest", "六枚碎片汇聚成的金色徽章"), { smallArt: true });
+  `, photo("gryffindor-emblem", "格兰芬多学院院徽"), { smallArt: true });
 }
 
 function renderGift() {

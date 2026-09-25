@@ -473,3 +473,86 @@ button.map-place:hover, button.map-place:focus-visible { color: #652b3a; backgro
 @media (prefers-reduced-motion: reduce) {
   .potion-choice { transform: none !important; }
 }
+
+/* User supplied imagery: keep it atmospheric around the interactive clues. */
+body {
+  background:
+    linear-gradient(100deg, rgba(15, 15, 21, .88), rgba(24, 18, 26, .83) 55%, rgba(16, 16, 23, .88)),
+    url("./assets/hogwarts-castle.png") center center / cover fixed,
+    #17151c;
+}
+.sky { opacity: .43; }
+.scene {
+  background:
+    linear-gradient(90deg, rgba(76, 42, 31, .22) 0 7px, transparent 7px 18px, rgba(92, 61, 36, .14) 18px 19px, transparent 19px),
+    radial-gradient(circle at 24% 10%, rgba(255, 247, 218, .55), transparent 42%),
+    repeating-linear-gradient(17deg, transparent 0 8px, rgba(61, 43, 27, .023) 9px 10px),
+    linear-gradient(120deg, #ead9b4, #d7bb8c 70%, #c9a574);
+}
+.scene::before, .scene::after {
+  width: 140px; height: 140px; border: 0;
+  background: url("./assets/filigree.svg") center / contain no-repeat;
+  opacity: .42;
+}
+.scene::before { top: 10px; left: 10px; }
+.scene::after { right: 10px; bottom: 10px; transform: rotate(180deg); }
+.scene--night {
+  background: radial-gradient(circle at 76% 25%, rgba(149, 91, 59, .18), transparent 38%), linear-gradient(135deg, #3a222d, #201b25 75%);
+}
+.scene--night::before, .scene--night::after { opacity: .64; filter: brightness(1.45); }
+.scene--letter {
+  background:
+    linear-gradient(132deg, transparent 0 48%, rgba(128, 84, 46, .13) 49% 50%, transparent 51%) top / 100% 160px no-repeat,
+    radial-gradient(circle at 50% 18%, rgba(255, 242, 202, .58), transparent 65%),
+    linear-gradient(125deg, #e8d5ac, #cfad7d);
+}
+.scene--castle {
+  background:
+    linear-gradient(90deg, rgba(235, 218, 178, .98) 0%, rgba(220, 195, 149, .93) 58%, rgba(215, 189, 144, .69) 100%),
+    url("./assets/hogwarts-castle.png") 60% center / cover,
+    #d9bd92;
+}
+.scene--hall {
+  background:
+    linear-gradient(90deg, rgba(35, 21, 26, .97) 0%, rgba(42, 25, 30, .92) 46%, rgba(44, 27, 31, .72) 100%),
+    url("./assets/hogwarts-hall.png") center center / cover,
+    #2a2028;
+}
+.scene--hall .scene-art::before { border-color: rgba(235, 201, 141, .34); }
+.scene--hall .choice { background: rgba(28, 20, 27, .54); }
+.scene--hall .choice:hover { background: rgba(112, 60, 53, .52); }
+.scene--mission .lead { background: rgba(246, 229, 188, .68); }
+.spell-form { background-color: rgba(240, 221, 182, .54); }
+.entry-shell { background: rgba(255, 245, 214, .83); }
+.map-frame { background: #dcc294; }
+.map-place { background: radial-gradient(circle at 25% 10%, #f6e7c4, #d8bb8c); }
+button.map-place:hover, button.map-place:focus-visible { background: #f9e8c0; }
+
+.scene--reveal { max-width: 1050px; text-align: left; }
+.scene--reveal .scene-copy { max-width: none; width: 100%; }
+.scene--reveal .button-row { justify-content: flex-start; }
+.reveal-layout { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1fr); align-items: center; gap: clamp(28px, 5vw, 62px); }
+.reveal-message { min-width: 0; }
+.house-emblem { display: block; width: clamp(145px, 18vw, 205px); height: auto; margin: 4px 0 27px; border: 5px solid #bb945e; box-shadow: 0 0 0 1px #55333a, 0 13px 24px rgba(0, 0, 0, .4); }
+.portrait-frame { width: min(100%, 390px); margin: 0 auto; padding: 10px 10px 0; border: 1px solid #c69f65; background: linear-gradient(130deg, #a37d51, #503442 35%, #c19959 100%); box-shadow: 0 22px 45px rgba(0, 0, 0, .47), inset 0 0 0 5px rgba(235, 197, 129, .25); }
+.iris-portrait { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: center top; border: 2px solid #2b2025; }
+.portrait-frame figcaption { padding: 12px 5px 14px; color: #f5dca9; font: 13px Cinzel, Georgia, serif; letter-spacing: .17em; text-align: center; }
+.scene--reveal .reveal-house { margin: 19px 0; font-size: clamp(34px, 5vw, 59px); }
+.scene--reveal .lead { max-width: 25em; }
+.scene-art img[src$="gryffindor-emblem.png"] { width: min(100%, 320px); max-height: 360px; border: 5px solid #b28b5c; box-shadow: 0 14px 28px rgba(54, 32, 27, .26); }
+.scene--castle .scene-art::before { border-color: rgba(94, 65, 42, .34); }
+
+@media (max-width: 760px) {
+  body { background-position: center center; background-attachment: scroll; }
+  .scene::before, .scene::after { width: 84px; height: 84px; opacity: .32; }
+  .scene--reveal { padding: 30px 23px 36px; }
+  .scene--reveal .button-row { justify-content: center; }
+  .reveal-layout { grid-template-columns: 1fr; gap: 12px; }
+  .reveal-message { text-align: center; }
+  .house-emblem { width: 155px; margin: 6px auto 21px; }
+  .scene--reveal .reveal-house { font-size: clamp(31px, 8vw, 42px); }
+  .portrait-frame { width: min(100%, 260px); }
+  .portrait-frame figcaption { padding: 8px 3px 10px; font-size: 10px; }
+  .scene--reveal .button-row .button { width: 100%; }
+  .scene-art img[src$="gryffindor-emblem.png"] { max-height: 270px; width: min(100%, 210px); }
+}
