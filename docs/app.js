@@ -41,44 +41,44 @@ const equipment = [
 
 const missions = [
   {
-    name: "猫头鹰邮局", english: "OWL POST", room: "客厅",
-    prompt: "白日安静，夜里替远方的人捎信；没有邮票，却从不迷路。它是谁？",
+    name: "猫头鹰邮局", english: "OWL POST", zone: "猫头鹰邮局 · 地图南侧",
+    prompt: "月亮升起后，谁把隔着山海的思念送进门？羽毛作印，脚爪作封。写下这位信使的名字。",
     hint: "想想会飞的魔法邮差。",
     reveal: "看看刚展开的活点地图第二道折页。信使留下了一只小挂件和第一枚碎片。",
     asset: "owl", seal: "20", answers: ["猫头鹰", "海德薇", "owl"], input: "text", placeholder: "写下信使的名字"
   },
   {
-    name: "魔药课", english: "POTIONS CLASS", room: "上中卧室",
-    prompt: "夜色是深褐，夕阳是橙，清泉透明。月光在夜色之后、夕阳之前。看看现场从左到右排好的四杯，它是哪一杯？",
-    hint: "请看桌上四只杯子的实际颜色与左右顺序。",
+    name: "魔药课", english: "POTIONS CLASS", zone: "魔药课教室 · 地图北侧",
+    prompt: "夜色是深褐，夕阳是橙，清泉透明。月光被夹在夜色与夕阳之间。观察现场从左到右的四杯：哪一杯是月光？",
+    hint: "按现场的左右顺序，找深褐色与橙色之间的那杯。",
     reveal: "月光杯的秘密压在它脚下。看看蓝色饮料的纸杯垫。",
     asset: "potion", seal: "05", answers: ["蓝色", "蓝", "blue"], input: "color"
   },
   {
-    name: "三把扫帚", english: "THREE BROOMSTICKS", room: "厨房",
+    name: "三把扫帚", english: "THREE BROOMSTICKS", zone: "三把扫帚 · 地图东北角",
     prompt: "老板把三张杯签弄乱了。按价钱从低到高排列，再读杯签背面的字。藏处是哪三个字？",
     hint: "找标着 2、5、8 的杯签；看背面，不看饮料名字。",
     reveal: "靠近厨房入口的一侧，摸摸台面下方。找到碎片后，不妨休息片刻，喝点东西。",
     asset: "inn", seal: "10", answers: ["台面下", "柜台下"], input: "text", placeholder: "写下三个字"
   },
   {
-    name: "密室", english: "CHAMBER OF SECRETS", room: "上中卧室与相邻卫生间",
-    prompt: "魔药课桌旁还留着一张看似空白的卡。用隐形笔的光照亮它。卡上写着要去的地方是哪三个字？",
-    hint: "回上中卧室找空白卡；按下隐形笔的灯，照亮纸面。",
+    name: "密室", english: "CHAMBER OF SECRETS", zone: "密室 · 魔药课教室东侧",
+    prompt: "魔药课结束后，有一张看似空白的咒语卡。用隐形笔的光照亮它，再输入卡上显现的三个字。",
+    hint: "在魔药课教室找空白卡；按下隐形笔的灯，照亮纸面。",
     reveal: "去上中卧室旁的窄卫生间，查看镜子右下角的干燥位置。",
     asset: "chamber", seal: "02", answers: ["卫生间", "洗手间", "厕所"], input: "text", placeholder: "写下卡上的地点"
   },
   {
-    name: "活点地图", english: "MARAUDER'S MAP", room: "全屋",
+    name: "活点地图", english: "MARAUDER'S MAP", zone: "旧站台 · 地图中下方",
     prompt: "从分院大厅出发，回到第一次穿越魔法世界的地方。尚未开启的行李留在哪间房？请点地图。",
-    hint: "车票最初放在哪间卧室？看地图下方中间的位置。",
+    hint: "列车最初停靠在哪里？看地图下方中间的位置。",
     reveal: "回到 9¾ 站台。现在可以打开贴有⑤号封印的行李箱。",
     asset: "map", seal: "24", answers: ["station"], input: "map"
   },
   {
-    name: "金色飞贼", english: "GOLDEN SNITCH", room: "阳台",
-    prompt: "它很小、金色、不愿落地；在家里最接近天空的地方找它。你要去哪里？",
-    hint: "看地图最下方，客厅外连接着哪里？",
+    name: "金色飞贼", english: "GOLDEN SNITCH", zone: "天文塔 · 地图最南端",
+    prompt: "它很小、金色、不愿落地；沿地图上离天空最近的一道边界走。你要去哪里？",
+    hint: "看地图最下方，邮局外连接着哪片露天区域？",
     reveal: "去阳台靠客厅门的一侧，找金色信封；不用靠近栏杆。",
     asset: "snitch", seal: "11", answers: ["阳台", "客厅阳台", "露台"], input: "text", placeholder: "写下地点"
   }
@@ -93,13 +93,32 @@ const fragmentText = [
   "用月日四位写下它"
 ];
 
+const atlasPlaces = [
+  { id: "bath", label: "封印区域", mission: null },
+  { id: "potion", label: "魔药课教室", mission: 1 },
+  { id: "chamber", label: "密室", mission: 3 },
+  { id: "kitchen", label: "三把扫帚", mission: 2 },
+  { id: "sorting", label: "分院大厅", mission: -1 },
+  { id: "station", label: "9¾ 站台", mission: 4 },
+  { id: "living", label: "猫头鹰邮局", mission: 0 },
+  { id: "balcony", label: "天文塔", mission: 5 }
+];
+
+const hintRunes = ["✦", "☾", "◇", "✧"];
+const hintSequences = [
+  ["☾", "✦", "◇"], ["✧", "☾", "◇"], ["◇", "✦", "☾"],
+  ["☾", "◇", "✧"], ["✦", "✧", "☾"], ["◇", "☾", "✦"]
+];
+
 const initialState = () => ({
   phase: "letter",
   question: 0,
   choices: [],
   gear: 0,
   mission: 0,
-  solved: false
+  solved: false,
+  atlasOpen: false,
+  hints: []
 });
 
 function loadState() {
@@ -111,7 +130,7 @@ function loadState() {
         && Number.isInteger(saved.gear) && saved.gear >= 0 && saved.gear <= equipment.length
         && Number.isInteger(saved.mission) && saved.mission >= 0 && saved.mission <= missions.length
         && typeof saved.solved === "boolean" && Array.isArray(saved.choices)) {
-      return saved;
+      return { ...initialState(), ...saved, atlasOpen: saved.atlasOpen === true, hints: Array.isArray(saved.hints) ? saved.hints : [] };
     }
   } catch (_) {
     // A fresh letter is safe when stored progress is unavailable.
@@ -121,6 +140,9 @@ function loadState() {
 
 let state = loadState();
 let trainTimer;
+let spellTimer;
+let transitioning = false;
+let hintSteps = 0;
 
 function save() {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (_) {}
@@ -131,6 +153,28 @@ function update(changes) {
   save();
   render();
   window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+function castSpell(changes, message) {
+  if (transitioning) return;
+  transitioning = true;
+  state = { ...state, ...changes };
+  save();
+  const overlay = document.getElementById("spell-overlay");
+  overlay.querySelector(".spell-overlay__message").textContent = message;
+  overlay.hidden = false;
+  overlay.classList.remove("is-active");
+  void overlay.offsetWidth;
+  overlay.classList.add("is-active");
+  const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 120 : 920;
+  clearTimeout(spellTimer);
+  spellTimer = window.setTimeout(() => {
+    overlay.hidden = true;
+    overlay.classList.remove("is-active");
+    transitioning = false;
+    render();
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, duration);
 }
 
 function normalize(value) {
@@ -182,7 +226,38 @@ function form(type, label, placeholder, short = false, extra = "") {
 }
 
 function hint(text) {
-  return `<button type="button" class="hint-button" data-action="hint">需要一点提示</button><p id="hint-text" class="hint-text" hidden>${text}</p>`;
+  const key = state.phase === "mission" ? `mission-${state.mission}` : state.phase;
+  const unlocked = state.hints.includes(key);
+  return `<div class="hint-cluster">
+    <button type="button" class="hint-button" data-action="hint" aria-expanded="false" aria-controls="hint-game">${unlocked ? "查看已获得的提示" : "召唤提示 · 符文小游戏"}</button>
+    <div id="hint-game" class="hint-game" hidden>
+      ${unlocked ? "" : `<p class="hint-game__intro">按卷轴上的顺序点亮三枚符文，提示便会显现。没有时间限制。</p>
+      <p class="hint-game__pattern" aria-label="符文顺序">${(hintSequences[state.mission % hintSequences.length] || hintSequences[0]).join(" → ")}</p>
+      <div class="hint-game__runes" role="group" aria-label="选择符文">${hintRunes.map(rune => `<button type="button" class="rune-button" data-rune="${rune}" aria-label="符文 ${rune}">${rune}</button>`).join("")}</div>
+      <p class="hint-game__status" role="status">等待第一枚符文</p>`}
+      <p class="hint-text" ${unlocked ? "" : "hidden"}>${text}</p>
+    </div>
+  </div>`;
+}
+
+function atlasDock() {
+  if (!["map-intro", "mission", "interlude", "finale", "gift", "end"].includes(state.phase)) return "";
+  const active = state.phase === "finale" || state.phase === "gift" || state.phase === "end" ? 0
+    : state.phase === "mission" && state.mission === 4 && !state.solved ? 3
+    : Math.min(state.mission, 5);
+  const current = missions[active];
+  const places = atlasPlaces.map(place => {
+    const currentPlace = place.mission === active && (state.phase === "mission" || state.phase === "interlude" || state.phase === "map-intro")
+      || place.id === "living" && ["finale", "gift", "end"].includes(state.phase);
+    const explored = place.mission === -1 || place.id === "station" || place.mission !== null && place.mission < state.mission;
+    const status = currentPlace ? "current" : explored ? "explored" : "locked";
+    const label = status === "locked" ? "未探索" : place.label;
+    return `<span class="atlas-place atlas-place--${place.id} is-${status}" ${currentPlace ? 'aria-current="location"' : ""} aria-label="${label}，${status === "current" ? "当前位置" : status === "explored" ? "已探索" : "未探索"}"><span class="atlas-place__mark" aria-hidden="true">${currentPlace ? "✦" : explored ? "·" : "?"}</span><span>${label}</span></span>`;
+  }).join("");
+  return `<details class="atlas-dock" id="journey-map" ${state.atlasOpen ? "open" : ""}>
+    <summary><span class="atlas-dock__glyph" aria-hidden="true">⌖</span><span class="atlas-dock__label"><strong>折叠的活点地图</strong><small>${state.phase === "mission" ? `现在：${current.name}` : "跟随墨迹，寻找下一站"}</small></span><span class="atlas-dock__count">${state.mission}/6</span><span class="atlas-dock__chevron" aria-hidden="true">⌄</span></summary>
+    <div class="atlas-sheet"><p class="atlas-sheet__intro">轻触地图，墨迹便显现。金色脚印是当前位置，雾中的房间尚未探索。</p><div class="atlas-grid" role="img" aria-label="魔法地点相对位置图">${places}<span class="atlas-corridor" aria-hidden="true">··· ✦ ···</span></div><p class="atlas-sheet__foot">地图只显示魔法地点；真实房间要靠你对照现场判断。</p></div>
+  </details>`;
 }
 
 function progress() {
@@ -194,17 +269,18 @@ function progress() {
 
 function renderLetter() {
   return scene(`
-    <div class="letter-head">HOGWARTS · SPECIAL ADMISSION</div>
-    <p class="letter-address">TO IRIS · NO. IRIS-1002</p>
+    <div class="letter-head">Hogwarts School of Witchcraft and Wizardry</div>
+    <p class="letter-address">A SPECIAL BIRTHDAY ADMISSION · 02 OCTOBER</p>
     <div class="seal" aria-hidden="true">H</div>
-    <h1 class="scene-title">生日特别入学通知书</h1>
-    <div class="letter-text">
-      <p>致 Iris：</p>
-      <p>我们很高兴通知你：10 月 2 日，你已获得霍格沃茨生日特别入学资格。</p>
-      <p>通往魔法世界的入口，就藏在你熟悉的家里。请寻找那座位于九与十之间、却不属于任何整数的站台。</p>
-      <p>收好这封信。列车正等着你。</p>
+    <p class="letter-salutation">My dearest Iris,</p>
+    <h1 class="scene-title letter-script-title">Your adventure begins tonight</h1>
+    <div class="letter-text letter-text--english">
+      <p>We are delighted to inform you that, on the second day of October, you have been granted a very special place at Hogwarts.</p>
+      <p>Your first passage to magic is hidden somewhere you already know. Seek the platform that rests between nine and ten, yet belongs to neither number.</p>
+      <p>Keep this letter close. The train is waiting for you.</p>
     </div>
-    <p class="letter-sign">霍格沃茨生日特别任务办公室</p>
+    <p class="letter-sign"><span>Yours in magic,</span><br>Hogwarts Birthday Admissions Office</p>
+    <details class="letter-translation"><summary>查看中文译文</summary><p>亲爱的 Iris：10 月 2 日，你已获得霍格沃茨生日特别入学资格。请寻找九与十之间的站台，列车正在等你。</p></details>
     <div class="button-row"><button class="button button-primary" data-action="accept-letter">接受邀请 · 寻找 9¾ 站台</button></div>
   `, "", { letter: true });
 }
@@ -301,21 +377,39 @@ function answerControls(mission) {
     </div><p id="feedback" class="feedback" role="status"></p>`;
   }
   if (mission.input === "map") {
-    return `<div class="map-frame"><div class="map-heading"><span>活点地图</span><span>轻触房间</span></div>
-      <div class="map-board" role="group" aria-label="房间相对位置图：上排卫生间、魔药课、窄卫生间、厨房；下排分院厅、站台、客厅；最下方阳台">
-        <button class="map-place map-place--bath" type="button" data-map-answer="bath" aria-label="左上卫生间">卫生间</button>
-        <button class="map-place map-place--potion" type="button" data-map-answer="potion">魔药课<small>上中卧室</small></button>
-        <button class="map-place map-place--chamber" type="button" data-map-answer="chamber" aria-label="上中窄卫生间">密室</button>
-        <button class="map-place map-place--kitchen" type="button" data-map-answer="kitchen">厨房</button>
+    return `<div class="map-frame"><div class="map-heading"><span>活点地图</span><span>轻触魔法地点</span></div>
+      <div class="map-board" role="group" aria-label="魔法地点相对位置图：上排封印区域、魔药课、密室、三把扫帚；下排分院厅、站台、猫头鹰邮局；最下方天文塔">
+        <button class="map-place map-place--bath" type="button" data-map-answer="bath">封印区域</button>
+        <button class="map-place map-place--potion" type="button" data-map-answer="potion">魔药课</button>
+        <button class="map-place map-place--chamber" type="button" data-map-answer="chamber">密室</button>
+        <button class="map-place map-place--kitchen" type="button" data-map-answer="kitchen">三把扫帚</button>
         <span class="map-corridor" aria-hidden="true">· · · ✦ · · ·</span>
-        <button class="map-place map-place--sorting" type="button" data-map-answer="sorting">分院厅<small>左下卧室</small></button>
-        <button class="map-place map-place--station" type="button" data-map-answer="station">9¾ 站台<small>中下卧室</small></button>
-        <button class="map-place map-place--living" type="button" data-map-answer="living">客厅</button>
-        <button class="map-place map-place--balcony" type="button" data-map-answer="balcony">阳台</button>
+        <button class="map-place map-place--sorting" type="button" data-map-answer="sorting">分院大厅</button>
+        <button class="map-place map-place--station" type="button" data-map-answer="station">9¾ 站台</button>
+        <button class="map-place map-place--living" type="button" data-map-answer="living">猫头鹰邮局</button>
+        <button class="map-place map-place--balcony" type="button" data-map-answer="balcony">天文塔</button>
       </div>
     </div><p id="feedback" class="feedback" role="status"></p>`;
   }
   return form("mission-answer", "把解出的答案告诉手机", mission.placeholder || "输入答案");
+}
+
+function missionOrnament(index) {
+  const ornaments = [
+    '<div class="quest-ornament quest-ornament--post" aria-hidden="true"><span>✉</span><b>OWL POST</b><span>✦ 02 OCT ✦</span></div>',
+    '<div class="quest-ornament quest-ornament--moon" aria-hidden="true"><span>●</span><span>◐</span><span>○</span><b>LUNAR ELIXIR</b></div>',
+    '<div class="quest-ornament quest-ornament--tavern" aria-hidden="true"><span>2 ◇</span><span>5 ◇</span><span>8 ◇</span></div>',
+    '<div class="quest-ornament quest-ornament--runes" aria-hidden="true"><span>ᚦ</span><span>ᚹ</span><span>ᛟ</span><b>REVELIO</b></div>',
+    '<div class="quest-ornament quest-ornament--atlas" aria-hidden="true"><span>⌖</span><b>THE MAP REMEMBERS</b><span>✦</span></div>',
+    '<div class="quest-ornament quest-ornament--stars" aria-hidden="true"><span>✦</span><span>⋆</span><span>✧</span><b>FOLLOW THE SKY</b></div>'
+  ];
+  return ornaments[index];
+}
+
+function missionArt(mission) {
+  return mission.asset === "owl"
+    ? photo("hedwig-watercolor", "水彩画的雪鸮海德薇", "hedwig-art")
+    : asset(mission.asset, `${mission.name}线描`);
 }
 
 function renderMission() {
@@ -326,20 +420,22 @@ function renderMission() {
   if (!state.solved) {
     return scene(`
       ${common}
+      ${missionOrnament(state.mission)}
       <h1 class="scene-title">${mission.name}</h1>
-      <p class="story">任务地点：${mission.room}</p>
+      <p class="quest-zone"><span aria-hidden="true">⌖</span>${mission.zone}</p>
       <p class="lead">${mission.prompt}</p>
       ${answerControls(mission)}
       ${hint(mission.hint)}
-    `, mission.input === "map" ? "" : asset(mission.asset, `${mission.name}线描`), { single: mission.input === "map", theme: mission.asset });
+    `, mission.input === "map" ? "" : missionArt(mission), { single: mission.input === "map", theme: mission.asset });
   }
   return scene(`
     ${common}
+    ${missionOrnament(state.mission)}
     <h1 class="scene-title">线索已经显现</h1>
     <div class="quote">${mission.reveal}</div>
     <p class="story">找到礼物与第 ${state.mission + 1} 枚纸质碎片。碎片背面有两位魔法印记；输入它，地图才会继续展开。</p>
     ${form("seal", "碎片背面的两位魔法印记", "00", true, 'inputmode="numeric" maxlength="2"')}
-  `, asset(mission.asset, `${mission.name}线描`), { smallArt: true, theme: mission.asset });
+  `, missionArt(mission), { smallArt: true, theme: mission.asset, variant: "solved" });
 }
 
 function renderInterlude() {
@@ -389,6 +485,7 @@ function renderEnd() {
 
 function render() {
   clearTimeout(trainTimer);
+  hintSteps = 0;
   const screens = {
     letter: renderLetter,
     ticket: renderTicket,
@@ -404,7 +501,7 @@ function render() {
     gift: renderGift,
     end: renderEnd
   };
-  app.innerHTML = screens[state.phase]();
+  app.innerHTML = screens[state.phase]() + atlasDock();
   if (state.phase === "train") {
     const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 900 : 4600;
     trainTimer = window.setTimeout(() => update({ phase: "sorting" }), duration);
@@ -413,17 +510,47 @@ function render() {
 
 function showFeedback(message) {
   const feedback = document.getElementById("feedback");
-  if (feedback) feedback.textContent = message;
+  if (feedback) {
+    feedback.textContent = message;
+    feedback.classList.remove("feedback--pulse");
+    void feedback.offsetWidth;
+    feedback.classList.add("feedback--pulse");
+  }
 }
 
 function verifyMissionAnswer(value) {
   const mission = missions[state.mission];
   const accepted = mission.answers.some(answer => normalize(answer) === normalize(value));
-  if (accepted) update({ solved: true });
+  if (accepted) castSpell({ solved: true }, "线索已经显现");
   else showFeedback("咒语暂时没有回应。再看看现场线索，或打开提示。");
 }
 
 app.addEventListener("click", event => {
+  if (transitioning) return;
+  const rune = event.target.closest("[data-rune]");
+  if (rune) {
+    const expected = hintSequences[state.mission % hintSequences.length] || hintSequences[0];
+    const status = document.querySelector(".hint-game__status");
+    if (rune.dataset.rune === expected[hintSteps]) {
+      rune.classList.add("is-lit");
+      hintSteps += 1;
+      if (hintSteps === expected.length) {
+        const key = state.phase === "mission" ? `mission-${state.mission}` : state.phase;
+        state.hints = [...new Set([...state.hints, key])];
+        save();
+        document.querySelector(".hint-game .hint-text").hidden = false;
+        document.querySelector(".hint-game__runes").hidden = true;
+        document.querySelector(".hint-game__pattern").hidden = true;
+        status.textContent = "符文点亮，提示出现了。";
+        document.querySelector(".hint-button").textContent = "查看已获得的提示";
+      } else status.textContent = `已点亮 ${hintSteps} / ${expected.length} 枚符文`;
+    } else {
+      hintSteps = 0;
+      document.querySelectorAll(".rune-button").forEach(button => button.classList.remove("is-lit"));
+      status.textContent = "顺序被打乱了；从第一枚重新点亮。";
+    }
+    return;
+  }
   const choice = event.target.closest("[data-choice]");
   if (choice && state.phase === "sorting") {
     const selected = Number(choice.dataset.choice);
@@ -456,17 +583,28 @@ app.addEventListener("click", event => {
     case "next-act": update({ phase: "mission" }); break;
     case "finish-gift": update({ phase: "end" }); break;
     case "hint": {
-      const text = document.getElementById("hint-text");
-      if (text) text.hidden = false;
+      const game = document.getElementById("hint-game");
+      if (game) {
+        game.hidden = !game.hidden;
+        event.target.closest(".hint-button").setAttribute("aria-expanded", String(!game.hidden));
+      }
       break;
     }
   }
 });
 
+app.addEventListener("toggle", event => {
+  if (event.target.id === "journey-map") {
+    state.atlasOpen = event.target.open;
+    save();
+  }
+}, true);
+
 app.addEventListener("submit", event => {
   const formElement = event.target.closest("form[data-form]");
   if (!formElement) return;
   event.preventDefault();
+  if (transitioning) return;
   const value = String(new FormData(formElement).get("answer") || "").trim();
   if (!value) {
     showFeedback("请先输入你找到的线索。");
@@ -474,7 +612,7 @@ app.addEventListener("submit", event => {
   }
   switch (formElement.dataset.form) {
     case "ticket":
-      if (normalize(value) === "1002") update({ phase: "train" });
+      if (normalize(value) === "1002") castSpell({ phase: "train" }, "车票已点亮");
       else showFeedback("登车码还不对，请看随票小卡。");
       break;
     case "mission-answer":
@@ -483,15 +621,15 @@ app.addEventListener("submit", event => {
     case "seal":
       if (/^\d{2}$/.test(value) && value === missions[state.mission].seal) {
         const next = state.mission + 1;
-        update(next === missions.length
+        castSpell(next === missions.length
           ? { mission: next, solved: false, phase: "finale" }
-          : { mission: next, solved: false, phase: next === 2 || next === 4 ? "interlude" : "mission" });
+          : { mission: next, solved: false, phase: next === 2 || next === 4 ? "interlude" : "mission" }, "魔法印记已归位");
       } else {
         showFeedback("印记未被识别。请看当前碎片背面的两位数字。");
       }
       break;
     case "date":
-      if (normalize(value) === "1111") update({ phase: "gift" });
+      if (normalize(value) === "1111") castSpell({ phase: "gift" }, "最后的咒语生效了");
       else showFeedback("咒语还没有生效。请按月日四位，再看看六张碎片。");
       break;
   }
@@ -500,6 +638,9 @@ app.addEventListener("submit", event => {
 resetButton.addEventListener("click", () => resetDialog.showModal());
 resetDialog.addEventListener("close", () => {
   if (resetDialog.returnValue === "confirm") {
+    clearTimeout(spellTimer);
+    transitioning = false;
+    document.getElementById("spell-overlay").hidden = true;
     state = initialState();
     save();
     render();

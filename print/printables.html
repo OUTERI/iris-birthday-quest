@@ -6,6 +6,7 @@
 <title>Iris 生日任务 · 可打印素材</title>
 <link rel="icon" type="image/svg+xml" href="../docs/assets/favicon.svg">
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Great+Vibes&display=swap");
 @page { size: A4; margin: 9mm; }
 * { box-sizing: border-box; }
 body { margin: 0; background: #d2c6ae; color: #3d2a27; font-family: "Noto Serif SC", "Songti SC", Georgia, serif; }
@@ -22,6 +23,15 @@ body { margin: 0; background: #d2c6ae; color: #3d2a27; font-family: "Noto Serif 
 .letter .number { font: 9pt Georgia, serif; letter-spacing: .15em; color: #845e4d; }
 .letter p { text-align: left; font-size: 11pt; line-height: 2; margin: 4mm 0; }
 .letter .sign { text-align: right; font-size: 9pt; margin-top: 5mm; }
+.letter .script-title { margin: 3mm 0 2mm; font: 400 27pt/1.05 "Great Vibes", "Snell Roundhand", cursive; color: #733747; }
+.letter .salutation { margin: 3mm 0 0; font: 22pt "Great Vibes", "Snell Roundhand", cursive; color: #733747; }
+.letter .english-copy { font: 600 13pt/1.34 "Cormorant Garamond", Georgia, serif; }
+.letter .english-copy p { margin: 2mm 0; font: inherit; line-height: inherit; }
+.letter .sign { margin-top: 2mm; font: 600 12pt/1.2 "Cormorant Garamond", Georgia, serif; }
+.letter .sign em { font: 18pt "Great Vibes", "Snell Roundhand", cursive; }
+.letter .translation { margin: 2mm 0 0; border-top: 1px solid #b6956b; padding-top: 2mm; font-size: 8pt; line-height: 1.35; color: #765946; }
+.letter .qr-block { margin-top: 2mm; padding-top: 2mm; }
+.letter .qr-block img { width: 28mm; height: 28mm; }
 .qr-block { display: flex; align-items: center; justify-content: center; gap: 5mm; margin-top: 5mm; border-top: 1px solid #b6956b; padding-top: 4mm; font-size: 9pt; }
 .qr-block img { width: 34mm; height: 34mm; padding: 1mm; background: #fff; image-rendering: pixelated; }
 .ticket-tab { display: flex; flex-direction: column; justify-content: center; width: 92mm; height: 40mm; margin: 0 auto; padding: 4mm; text-align: center; background: #f3e5c5; border: 1px dashed #8e614a; }
@@ -72,14 +82,13 @@ body { margin: 0; background: #d2c6ae; color: #3d2a27; font-family: "Noto Serif 
   <h2 class="sheet-title">01 · PERSONALIZED ADMISSION</h2>
   <p class="sheet-note">将个性化内页放进已购买的霍格沃茨信封。下方登车码小卡与已购买车票一起放在站台房间。</p>
   <div class="letter cut">
-    <div class="letter-kicker">HOGWARTS · SPECIAL ADMISSION</div>
-    <div class="number">TO IRIS · NO. IRIS-1002</div>
-    <h1>生日特别入学通知书</h1>
-    <p>致 Iris：</p>
-    <p>我们很高兴通知你：10 月 2 日，你已获得霍格沃茨生日特别入学资格。</p>
-    <p>通往魔法世界的入口，就藏在你熟悉的家里。请寻找那座位于九与十之间、却不属于任何整数的站台。</p>
-    <p>收好这封信。列车正等着你。</p>
-    <p class="sign">霍格沃茨生日特别任务办公室</p>
+    <div class="letter-kicker">HOGWARTS SCHOOL OF WITCHCRAFT AND WIZARDRY</div>
+    <div class="number">A SPECIAL BIRTHDAY ADMISSION · 02 OCTOBER</div>
+    <p class="salutation">My dearest Iris,</p>
+    <h1 class="script-title">Your adventure begins tonight</h1>
+    <div class="english-copy"><p>We are delighted to inform you that, on the second day of October, you have been granted a very special place at Hogwarts.</p><p>Your first passage to magic is hidden somewhere you already know. Seek the platform that rests between nine and ten, yet belongs to neither number.</p><p>Keep this letter close. The train is waiting for you.</p></div>
+    <p class="sign"><em>Yours in magic,</em><br>Hogwarts Birthday Admissions Office</p>
+    <p class="translation">10 月 2 日，你获得了霍格沃茨生日特别入学资格。请寻找九与十之间的站台。</p>
     <div class="qr-block"><img src="./qr.svg" alt="生日任务二维码"><span>扫描魔法印记<br>打开电子通知书</span></div>
   </div>
   <div class="ticket-tab cut"><span>HOGWARTS EXPRESS · BOARDING CODE</span><strong>1002</strong><span>与车票一起放置 · 请在手机输入</span></div>

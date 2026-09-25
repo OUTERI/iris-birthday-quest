@@ -1,6 +1,6 @@
 # Iris 的霍格沃茨生日特别任务
 
-生日互动网页与现场寻宝素材。网页从纸质通知书上的二维码开始，逐关要求输入谜题答案，再输入纸质碎片背面的两位魔法印记。
+生日互动网页与现场寻宝素材。网页从纸质通知书上的二维码开始，逐关要求输入谜题答案，再输入纸质碎片背面的两位魔法印记。纸质与电子通知书均为英文花体版本。
 
 - 网页：<https://outeri.github.io/iris-birthday-quest/>
 - 打印版：[print/iris-birthday-printables.pdf](print/iris-birthday-printables.pdf)
@@ -23,10 +23,14 @@
 
 ## 页面流程
 
-`docs/` 是 GitHub Pages 的发布目录。网页使用静态 HTML、CSS、JavaScript，无需服务器或账号；进度只保存在当前浏览器的 `localStorage`。本次印记改版使用新的进度记录，打开新版会从通知书重新开始。页面底部的“重新开始”经确认后清除本机进度。错误答案不会锁关，提示按钮只指出要查看的现场物品。
+`docs/` 是 GitHub Pages 的发布目录。网页使用静态 HTML、CSS、JavaScript，无需服务器或账号；进度只保存在当前浏览器的 `localStorage`。页面底部的“重新开始”经确认后清除本机进度。正确答案会触发魔杖施法动画，刷新后仍能继续；错误答案不会锁关。提示按钮会开启一个无计时的符文小游戏，解开后才显示提示，已获得的提示也保留在本机。活点地图可在关卡页面底部展开，显示当前魔法地点、已探索和未探索区域；真实房间与藏点在解题前不直接写在关卡页上。
 
 网页与仓库源码公开可读，日期和关卡校验仅承担游戏流程作用。手绘户型原图没有上传；网页地图只保留房间相对位置。
 
 ## 修改二维码
 
 若网页地址改变，先修改 `print/generate_qr.py` 中的 `URL`，再运行 `python print/generate_qr.py` 重新生成 `print/qr.svg`，最后从 `print/printables.html` 重新导出 PDF。纸质二维码必须以最终已上线的网址为准。
+
+## 设计参考
+
+折叠地图的魔杖与移动意象参考了 [官方活点地图介绍](https://www.harrypotter.com/fact-file/objects/the-marauders-map)；底部导航、课程卡和短小游戏的交互思路参考了 [aniqatc/hogwarts](https://github.com/aniqatc/hogwarts) 与 [Precious-Carbonell/Hogwarts](https://github.com/Precious-Carbonell/Hogwarts)。页面代码和新增插画均在本项目中独立制作。
