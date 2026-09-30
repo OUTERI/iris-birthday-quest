@@ -1,0 +1,9 @@
+Alnwick Castle Exterior
+Author: EoRdE6
+Source: https://commons.wikimedia.org/wiki/File:Alnwick_Castle_Exterior.JPG
+License: Creative Commons Attribution-ShareAlike 4.0 International
+License text: https://creativecommons.org/licenses/by-sa/4.0/legalcode
+
+This photograph was resized and converted from JPG to WebP.
+The adapted photograph retains the CC BY-SA 4.0 license.
+Local file: assets/alnwick-castle.webp

@@ -2,47 +2,30 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#211b22">
-  <meta name="description" content="Iris 的霍格沃茨生日特别任务">
-  <title>Iris · 霍格沃茨生日特别任务</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#11141c">
+  <meta name="description" content="写给 Iris 的一场生日魔法冒险。">
+  <title>Iris · A Birthday in Hogwarts</title>
   <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
-  <link rel="stylesheet" href="./style.css?v=6">
-  <link rel="stylesheet" href="./cinematic.css?v=1">
-  <script src="./app.js?v=7" defer></script>
+  <link rel="preload" href="./assets/fonts/cormorant.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="./handbook.css?v=3">
+  <script src="./vendor/anime.min.js" defer></script>
+  <script src="./vendor/Sortable.min.js" defer></script>
+  <script src="./quest-data.js?v=3" defer></script>
+  <script src="./quest-rules.js?v=3" defer></script>
+  <script src="./handbook.js?v=3" defer></script>
 </head>
-<body>
-  <div class="sky" aria-hidden="true"><span></span><span></span><span></span></div>
-  <div class="site-frame">
-    <header class="site-header">
-      <div class="brand"><span class="brand-mark" aria-hidden="true">✦</span><span>IRIS <small>· THE BIRTHDAY QUEST</small></span></div>
-      <span class="header-date">02 OCTOBER</span>
-    </header>
-    <main id="app" class="app" aria-live="polite"></main>
-    <footer class="site-footer">
-      <span>Made for Iris, with a little magic.</span>
-      <button id="reset-button" class="quiet-button" type="button">重新开始</button>
-    </footer>
-  </div>
-  <dialog id="reset-dialog" class="reset-dialog">
-    <form method="dialog">
-      <h2>重新开始旅程？</h2>
-      <p>这会清除这台手机保存的进度，回到入学通知书。</p>
-      <div class="dialog-actions">
-        <button value="cancel" class="button button-ghost">继续旅程</button>
-        <button value="confirm" class="button button-primary">重新开始</button>
-      </div>
-    </form>
-  </dialog>
-  <div id="spell-overlay" class="spell-overlay" role="status" aria-live="polite" hidden>
-    <span class="spell-overlay__halo" aria-hidden="true"></span>
-    <span class="spell-overlay__ring spell-overlay__ring--one" aria-hidden="true"></span>
-    <span class="spell-overlay__ring spell-overlay__ring--two" aria-hidden="true"></span>
-    <svg class="spell-overlay__wand" viewBox="0 0 260 260" fill="none" aria-hidden="true"><path d="M43 219 174 86" stroke="#3b2530" stroke-width="17" stroke-linecap="round"/><path d="M55 207 174 86" stroke="#bf8755" stroke-width="6" stroke-linecap="round"/><path d="m164 95 27-28" stroke="#f5d78e" stroke-width="4" stroke-linecap="round"/><path d="m194 48 4 14 14 4-14 4-4 14-4-14-14-4 14-4 4-14Z" fill="#ffe7ac"/><circle cx="194" cy="66" r="26" stroke="#e6bc73" stroke-opacity=".6"/></svg>
-    <span class="spell-overlay__spark spell-overlay__spark--a" aria-hidden="true">✦</span><span class="spell-overlay__spark spell-overlay__spark--b" aria-hidden="true">✧</span><span class="spell-overlay__spark spell-overlay__spark--c" aria-hidden="true">✦</span>
-    <span class="spell-overlay__sigil" aria-hidden="true">✧</span>
-    <strong class="spell-overlay__message"></strong>
-    <small class="spell-overlay__subline"></small>
-  </div>
+<body data-theme="castle">
+  <div class="scenery" aria-hidden="true"></div>
+  <div class="ambient" aria-hidden="true"></div>
+  <header class="site-header"><a class="brand" href="./" aria-label="Iris 魔法手册首页"><span class="brand-sigil">✧</span><span>Iris<small>A birthday in Hogwarts</small></span></a><div class="header-tools"><span class="birthday-date">02 <small>October</small></span><button id="sound-button" class="quiet-button" data-action="sound" aria-pressed="false">♪ 音效关</button></div></header>
+  <main id="app"></main>
+  <button id="atlas-preview" class="atlas-preview" data-action="map" hidden><span class="folded-mark">⌖</span><span><b>折叠的活点地图</b><small id="target-label"></small></span><span aria-hidden="true">⌄</span></button>
+  <footer class="site-footer"><span>Made for Iris, with a little magic.</span><div><button class="quiet-button" data-action="credits">素材鸣谢</button><button class="quiet-button" data-action="reset">重新开始</button></div></footer>
+  <nav id="book-nav" class="book-nav" aria-label="魔法手册导航" hidden><button data-action="task"><span>✧</span>任务</button><button data-action="map"><span>⌖</span>地图</button><button data-action="collection"><span>◇</span>收藏 <small id="fragment-count">0 / 6</small></button></nav>
+  <dialog id="book-dialog" aria-label="魔法手册"><div id="dialog-body"></div></dialog>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+  <audio id="click-sound" src="./assets/interface-click.ogg" preload="none"></audio>
+  <noscript><p class="noscript">请启用 JavaScript，魔法手册才能记录你的旅程。</p></noscript>
 </body>
 </html>

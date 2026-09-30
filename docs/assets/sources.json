@@ -1,0 +1,64 @@
+[
+  {
+    "name": "Pinyon Script",
+    "file": "assets/fonts/pinyon.ttf",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/pinyonscript/PinyonScript-Regular.ttf",
+    "license": "SIL OFL 1.1"
+  },
+  {
+    "name": "Pinyon Script license",
+    "file": "licenses/pinyon-OFL.txt",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/pinyonscript/OFL.txt",
+    "license": "SIL OFL 1.1"
+  },
+  {
+    "name": "Cormorant Garamond",
+    "file": "assets/fonts/cormorant.ttf",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/cormorantgaramond/CormorantGaramond%5Bwght%5D.ttf",
+    "license": "SIL OFL 1.1"
+  },
+  {
+    "name": "Cormorant license",
+    "file": "licenses/cormorant-OFL.txt",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/cormorantgaramond/OFL.txt",
+    "license": "SIL OFL 1.1"
+  },
+  {
+    "name": "Anime.js 3.2.2",
+    "file": "vendor/anime.min.js",
+    "source": "https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js",
+    "license": "MIT"
+  },
+  {
+    "name": "Anime.js license",
+    "file": "licenses/anime-MIT.txt",
+    "source": "https://raw.githubusercontent.com/juliangarnier/anime/v3.2.2/LICENSE.md",
+    "license": "MIT"
+  },
+  {
+    "name": "SortableJS 1.15.6",
+    "file": "vendor/Sortable.min.js",
+    "source": "https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js",
+    "license": "MIT"
+  },
+  {
+    "name": "SortableJS license",
+    "file": "licenses/sortable-MIT.txt",
+    "source": "https://raw.githubusercontent.com/SortableJS/Sortable/1.15.6/LICENSE",
+    "license": "MIT"
+  },
+  {
+    "name": "Alnwick Castle Exterior — EoRdE6",
+    "file": "assets/alnwick-castle.webp",
+    "source": "https://commons.wikimedia.org/wiki/File:Alnwick_Castle_Exterior.JPG",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "changes": "resized and converted to WebP"
+  },
+  {
+    "name": "Kenney Interface Sounds",
+    "file": "assets/interface-click.ogg",
+    "source": "https://kenney.nl/assets/interface-sounds",
+    "license": "CC0 1.0"
+  }
+]
