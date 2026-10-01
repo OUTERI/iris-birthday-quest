@@ -16,13 +16,17 @@
 照片、祝福与终局合影配置在 `docs/birthday-content.js`。祝福没有虚构具体纪念日、旅行时间或聊天梗。照片文件已移除 EXIF 元数据。硬件能力需要在实际手机浏览器中彩排；自动化可验证渲染、权限拒绝、模拟输入与资源清理，无法代替真实手机摄像头、陀螺仪、语音服务和震动测试。
 
 - 网页：<https://outeri.github.io/iris-birthday-quest/>
-- 玩家素材：`print/iris-birthday-printables.pdf`（9 页）
-- 主持人指南：`print/iris-birthday-organizer.pdf`（2 页，含答案，勿放入现场）
+- 在线打印材料：<https://outeri.github.io/iris-birthday-quest/print/>
+- 玩家素材：`print/iris-birthday-printables-immersive.pdf`（15 页；第 10-15 页可选）
+- 主持人指南：`print/iris-birthday-organizer-immersive.pdf`（8 页，含答案、三级提示、硬件备用和终局台词，勿放入现场）
+- 文字版布置与提示：`print/现场布置与提示.md`
 - 可打印源：`print/printables.html`、`print/organizer.html`
 
 ## 开始前
 
 新版谜题需要成套重新打印。A4、100% 比例、彩色，关闭页眉页脚。碎片沿外虚线剪下，沿中线向背面折，形成句子正面和印记/残图背面；杯签同样折叠。
+
+第 1-9 页继续使用原有谜题道具；本次新增第 10 页完整地图/探索手札、第 11 页互动小卡、第 12 页六张祝福卡、第 13-15 页 11 张照片与题词卡。第 12 页按编号随礼物隐藏，不遮挡原碎片；纸质照片可任意分配，无需与手机随机照片顺序对应。旧版九页 PDF 保留，正式使用名称含 `immersive` 的新版。
 
 | 现实位置 | 魔法地点 | 物品与藏点 |
 | --- | --- | --- |
@@ -68,6 +72,8 @@ node scripts/verify_puzzles.cjs
 ```
 
 预览：`http://127.0.0.1:8765/docs/`。浏览器自动化脚本 `scripts/qa_browser.js` 完整验证手机流程和 75 个尺寸/阶段场景。PDF 从打印 HTML 导出，`scripts/render_pdfs.py` 渲染检查，`scripts/verify_artifacts.py` 解码最终 PDF 的二维码并检查资源。
+
+打印更新：`scripts/print_supplements.cjs` 从当前谜题与生日配置生成补充页及文字提示；`scripts/export_printables.js` 检查 HTML 页内溢出后导出 15+8 页 A4；渲染与验证通过后，运行 `python scripts/publish_print_materials.py` 将相同文件放入 `docs/print/`，随 GitHub Pages 发布。在线材料入口独立于玩家通关流程。
 
 8–12 分钟/关是设计目标，尚需未看过答案的人进行实际现场盲测。最终彩排应检查扫码、隐形字、实物藏点、刷新续玩和全部印记。
 

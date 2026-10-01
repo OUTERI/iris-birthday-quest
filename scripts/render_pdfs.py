@@ -6,7 +6,8 @@ root = Path(__file__).resolve().parents[1]
 out = root / 'output/pdf-review'
 out.mkdir(parents=True, exist_ok=True)
 thumbnails = []
-for name, expected in [('iris-birthday-printables', 9), ('iris-birthday-organizer', 2)]:
+for name, expected in [('iris-birthday-printables-immersive', 15), ('iris-birthday-organizer-immersive', 8)]:
+    document_thumbs = []
     pdf = fitz.open(root / 'print' / (name + '.pdf'))
     assert len(pdf) == expected, (name, len(pdf))
     for index, page in enumerate(pdf):
@@ -19,8 +20,13 @@ for name, expected in [('iris-birthday-printables', 9), ('iris-birthday-organize
         card.paste(image, ((350-image.width)//2, 20))
         ImageDraw.Draw(card).text((10, 485), f'{name} / {index+1}', fill='#49392c')
         thumbnails.append(card)
+        document_thumbs.append(card)
+    document_grid = Image.new('RGB', (350*4, 510*((len(document_thumbs)+3)//4)), '#34302b')
+    for index, thumb in enumerate(document_thumbs):
+        document_grid.paste(thumb, ((index%4)*350,(index//4)*510))
+    document_grid.save(out / (name+'-contact.jpg'), quality=90)
     print(name, len(pdf), 'pages rendered')
-grid = Image.new('RGB', (350*4, 510*3), '#34302b')
+grid = Image.new('RGB', (350*4, 510*((len(thumbnails)+3)//4)), '#34302b')
 for index, thumb in enumerate(thumbnails):
     grid.paste(thumb, ((index%4)*350,(index//4)*510))
 grid.save(out / 'contact-sheet.jpg', quality=90)
