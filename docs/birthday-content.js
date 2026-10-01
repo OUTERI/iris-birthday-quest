@@ -1,0 +1,26 @@
+/* Replace wishes/photos here when real memories are available. No invented anecdotes. */
+window.BirthdayContent={
+  patronus:'cat',
+  finalePhoto:'memories/memory-09',
+  photos:[
+    {file:'memories/memory-01',caption:'白色外套里的你'},
+    {file:'memories/memory-02',caption:'一起留在镜头里的笑容'},
+    {file:'memories/memory-03',caption:'两杯清凉，平常的快乐'},
+    {file:'memories/memory-04',caption:'靠近一点，拍一张合照'},
+    {file:'memories/memory-05',caption:'树影下的我们'},
+    {file:'memories/memory-06',caption:'并肩坐着的时刻'},
+    {file:'memories/memory-07',caption:'把沿途的风景留给回忆'},
+    {file:'memories/memory-08',caption:'晴空、鲜花和笑容'},
+    {file:'memories/memory-09',caption:'夜色里的红与金'},
+    {file:'memories/memory-10',caption:'一起向前的勇气'},
+    {file:'memories/memory-11',caption:'五老峰，把这一刻留住'}
+  ],
+  wishes:[
+    {title:'愿你总有人等',text:'媛宝，愿寄给你的每一封信都带着好消息，愿每一次回家，都有人认真听你说今天发生了什么。',photo:'iris-portrait'},
+    {title:'愿快乐有配方',text:'愿你的日子里，快乐可以多放一点，烦恼可以少放一点。累的时候不必逞强，慢慢来，也很好。',photo:'iris-portrait'},
+    {title:'愿平凡也温暖',text:'愿我们有很多可以慢慢吃的饭，很多不用赶时间的晚上。世界再大，一张小桌也能盛下幸福。',photo:'iris-portrait'},
+    {title:'愿勇气被温柔接住',text:'你不必时时勇敢。愿害怕时有一只可以握住的手，愿你说需要陪伴的时候，总能得到回应。',photo:'iris-portrait'},
+    {title:'愿故事一直有下一页',text:'愿未来还有好多没去过的地方、没听过的旋律。也愿走过很远之后，我们仍然愿意一起出发。',photo:'iris-portrait'},
+    {title:'愿星光偏爱你',text:'Iris，愿你被爱，也自在地做自己。愿每一个十月二日，都值得期待；愿往后的普通日子，也有小小的惊喜。',photo:'iris-portrait'}
+  ]
+};

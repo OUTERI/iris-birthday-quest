@@ -6,14 +6,14 @@ async (page) => {
   const assert=(condition,message)=>{if(!condition)throw Error(message);};
   const get=()=>page.evaluate(k=>JSON.parse(localStorage.getItem(k)),key);
   const click=async action=>{await page.locator(`[data-action="${action}"]`).first().click();await page.waitForTimeout(30);};
-  const submit=async(kind,value)=>{await page.locator(`[data-form="${kind}"] input`).fill(value);await page.locator(`[data-form="${kind}"] button[type="submit"]`).click();await page.waitForTimeout(30);};
+  const submit=async(kind,value)=>{await page.locator(`[data-form="${kind}"] input`).fill(value);await page.locator(`[data-form="${kind}"] button[type="submit"]`).click();await page.waitForTimeout(30);if(kind==='seal'&&(await get()).phase==='memory'){await page.locator('.memory-photo-stack img').first().waitFor();assert(await page.locator('.memory-photo-stack img').count()>0,'verified fragment did not reveal photographs');await page.reload();assert((await get()).phase==='memory','memory reveal not restored');await click('continue-memory');}};
   const choose=async(field,index,value)=>page.locator(`[data-field="${field}"][data-index="${index}"]`).selectOption(String(value));
   const snapshot=async name=>page.screenshot({path:`C:/Users/23271/Documents/ChatGPT/bth/output/qa-${name}.png`,fullPage:true});
   await page.goto(base);await page.emulateMedia({reducedMotion:'reduce'});await page.setViewportSize({width:390,height:844});
   await page.evaluate(k=>{localStorage.removeItem(k);localStorage.setItem('iris-birthday-quest-v2',JSON.stringify({legacy:'retained'}));},key);await page.reload();
   await click('open-letter');await snapshot('letter');await click('accept-letter');
   await submit('ticket','0000');assert((await get()).phase==='ticket','wrong ticket advanced');
-  await submit('ticket','1002');await click('arrive');
+  await submit('ticket','1002');await page.locator('[data-action="arrive"]').click({force:true});await page.waitForTimeout(30);
   for(let i=0;i<5;i++){
     await page.locator(`[data-action="choice"][data-value="${i%2}"]`).click();await page.waitForTimeout(20);
     const expected=await page.evaluate(({i,choice})=>QuestData.questions[i].responses[choice],{i,choice:i%2});
@@ -50,7 +50,7 @@ async (page) => {
   for(let i=0;i<3;i++)await click('rotate-sky');await click('mirror-sky');await page.reload();assert((await get()).quests[5].rotation===0&&!(await get()).quests[5].mirror,'star alignment state lost');await click('check-sky');
   for(const id of ['I1','R','I2','S'])await page.locator(`[data-action="star"][data-value="${id}"]`).click();
   await snapshot('astronomy');await click('check-stars');await page.locator('[data-place="balcony"]').click();await page.waitForTimeout(30);await submit('seal','11');
-  assert((await get()).phase==='finale','six marks did not unlock finale');await submit('date','1002');assert((await get()).phase==='finale','birthday accepted as anniversary');await submit('date','1111');await click('finish');assert((await get()).phase==='end','full quest failed');
+  assert((await get()).phase==='finale','six marks did not unlock finale');await submit('date','1002');assert((await get()).phase==='finale','birthday accepted as anniversary');assert(await page.locator('.secret-letter').count()===1,'birthday Easter egg absent');await click('close-modal');await submit('date','1111');await click('finish');assert((await get()).phase==='end','full quest failed');await page.locator('[data-magic="cast-fallback"]').click();await page.waitForTimeout(30);assert((await get()).endStage===1,'patronus did not reach cake');await page.locator('[data-magic="blow"]').click();await page.waitForTimeout(30);assert((await get()).endStage===2,'cake did not reveal letter');
   assert(await page.evaluate(()=>JSON.parse(localStorage.getItem('iris-birthday-quest-v2')).legacy==='retained'),'legacy state overwritten');
   const final=await get();results.push('full mobile flow, error gates, act boundaries, refresh, legacy retention: PASS');
   const widths=[320,390,430,768,1200],screens=[['letter',0,0],['ticket',0,0],['sorting',0,0],['reveal',0,0],['map-intro',0,0],...Array.from({length:6},(_,i)=>['mission',i,0]),['mission',1,1],['mission',4,1],['mission',5,1],['finale',6,0]];

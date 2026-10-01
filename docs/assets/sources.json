@@ -60,5 +60,72 @@
     "file": "assets/interface-click.ogg",
     "source": "https://kenney.nl/assets/interface-sounds",
     "license": "CC0 1.0"
+  },
+  {
+    "file": "vendor/three.module.js",
+    "source": "https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js",
+    "bytes": 1272972,
+    "license": "MIT"
+  },
+  {
+    "file": "licenses/three-MIT.txt",
+    "source": "https://cdn.jsdelivr.net/npm/three@0.160.1/LICENSE",
+    "bytes": 1081,
+    "license": "MIT"
+  },
+  {
+    "file": "vendor/mediapipe/vision_bundle.mjs",
+    "source": "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22-rc.20250304/vision_bundle.mjs",
+    "bytes": 137809,
+    "license": "Apache-2.0"
+  },
+  {
+    "file": "licenses/mediapipe-Apache-2.0.txt",
+    "source": "https://raw.githubusercontent.com/google-ai-edge/mediapipe/master/LICENSE",
+    "bytes": 12331,
+    "license": "Apache-2.0"
+  },
+  {
+    "file": "vendor/mediapipe/hand_landmarker.task",
+    "source": "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
+    "bytes": 7819105,
+    "license": "Apache-2.0"
+  },
+  {
+    "file": "vendor/mediapipe/wasm/vision_wasm_internal.js",
+    "source": "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22-rc.20250304/wasm/vision_wasm_internal.js",
+    "bytes": 204284,
+    "license": "Apache-2.0"
+  },
+  {
+    "file": "vendor/mediapipe/wasm/vision_wasm_internal.wasm",
+    "source": "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22-rc.20250304/wasm/vision_wasm_internal.wasm",
+    "bytes": 9574032,
+    "license": "Apache-2.0"
+  },
+  {
+    "file": "vendor/mediapipe/wasm/vision_wasm_nosimd_internal.js",
+    "source": "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22-rc.20250304/wasm/vision_wasm_nosimd_internal.js",
+    "bytes": 204137,
+    "license": "Apache-2.0"
+  },
+  {
+    "file": "vendor/mediapipe/wasm/vision_wasm_nosimd_internal.wasm",
+    "source": "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.22-rc.20250304/wasm/vision_wasm_nosimd_internal.wasm",
+    "bytes": 9448638,
+    "license": "Apache-2.0"
+  },
+  {
+    "name": "Relationship memory photographs",
+    "files": "assets/memories/memory-01.webp … memory-11.webp",
+    "source": "User-provided photographs, 2026-10-01",
+    "license": "Used with user authorization for this birthday website",
+    "changes": "EXIF removed, orientation corrected, resized to maximum 1400 px and converted to WebP"
+  },
+  {
+    "name": "Original magical audio and artwork",
+    "files": "immersion.js, hardware.js, assets/parchment-grain.svg, assets/wand-cursor.svg",
+    "source": "Created for Iris birthday quest",
+    "license": "Project original artwork and procedural audio"
   }
 ]

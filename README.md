@@ -2,6 +2,19 @@
 
 写给媛宝 / Iris 的电影式魔法手册。静态 HTML/CSS/JavaScript，纸质线索与手机交替推进，六关分为 2+2+2 三幕。
 
+## 生日沉浸版
+
+- 11 张真实照片随机分配到六枚记忆封印，每次旅程分配固定，刷新后保留。只有验证对应实体印记，才展示那一组照片和祝福。六枚齐集后拼合红衣合影；收藏中可随时回看已解封照片。
+- 魔药支持长按拖入坩埚，也可点击投放；密室支持手指画 V 或圈施放 Lumos。画符可跳过，照明状态会保存。
+- 3D 冥想盆使用 Three.js 与原创水波着色器：六根银丝、可交互涟漪、下潜转场、星空中的照片平面；支持拖动视角，以及主动开启方向传感器。WebGL 不可用时，普通相册继续可用。
+- 摄像头模式使用本地 MediaPipe Hand Landmarker，追踪食指尖画 V 或圈。首次按需加载约 18 MB；不会追踪独立笔尖，不上传摄像头画面。关闭、切换页面或后台时停止摄像头。
+- 可选语音识别 `Alohomora` 与 `Expecto Patronum`，使用浏览器 Speech API；该浏览器服务可能联网，支持程度因设备而异。失败可用原有按钮继续，不能跳过实体印记。
+- 声音默认关闭。开启后播放原创程序生成的风声、轻音乐、翻页/火漆/投放/施咒音；支持系统减少动态效果，关键操作可触发设备震动。
+- 终局：长按、键盘或语音召唤银色猫咪 → 许愿 → 上滑/按钮/可选麦克风熄灭蜡烛 → 红金星火 → 最后祝福信。麦克风按连续音量阈值检测吹气，并非语义识别；环境大声也可能触发。所有音轨在完成、取消、离开时关闭。
+- 手札页脚小星星连续点击三次，或在终局日期框输入 `1002`，可打开有求必应屋留言；不会推进任务。
+
+照片、祝福与终局合影配置在 `docs/birthday-content.js`。祝福没有虚构具体纪念日、旅行时间或聊天梗。照片文件已移除 EXIF 元数据。硬件能力需要在实际手机浏览器中彩排；自动化可验证渲染、权限拒绝、模拟输入与资源清理，无法代替真实手机摄像头、陀螺仪、语音服务和震动测试。
+
 - 网页：<https://outeri.github.io/iris-birthday-quest/>
 - 玩家素材：`print/iris-birthday-printables.pdf`（9 页）
 - 主持人指南：`print/iris-birthday-organizer.pdf`（2 页，含答案，勿放入现场）
@@ -46,7 +59,7 @@
 
 ## 开发与验证
 
-`docs/` 为 GitHub Pages 的发布目录。`quest-data.js` 是网页与打印素材共用的题卡、符号、星图和地图数据；`quest-rules.js` 为判定；`handbook.js` 与 `handbook.css` 为新版界面。旧版页面代码保留但不再加载。
+`docs/` 为 GitHub Pages 的发布目录。`quest-data.js` 是网页与打印素材共用的题卡、符号、星图和地图数据；`quest-rules.js` 为判定；`handbook.js` 与 `handbook.css` 为主界面，`immersion.js/css` 为相册、音效和生日终局，`hardware.js/css` 为按需开启的 3D、传感器、摄像头和语音能力。旧版页面代码保留但不再加载。
 
 ```text
 python scripts/dev_server.py
@@ -60,6 +73,6 @@ node scripts/verify_puzzles.cjs
 
 ## 素材来源
 
-城堡照片 EoRdE6 / Alnwick Castle Exterior，CC BY-SA 4.0，缩放转为 WebP；用于列车窗景。字体 Pinyon Script、Cormorant Garamond（SIL OFL）；Anime.js 3.2.2、SortableJS 1.15.6（MIT）；Kenney Interface Sounds（CC0）。详细来源在 `docs/assets/sources.json`，许可原文保存在 `docs/licenses/`。原有场景、学院徽章和 Iris 人像继续沿用。
+城堡照片 EoRdE6 / Alnwick Castle Exterior，CC BY-SA 4.0，缩放转为 WebP；用于列车窗景。字体 Pinyon Script、Cormorant Garamond（SIL OFL）；Anime.js 3.2.2、SortableJS 1.15.6、Three.js 0.160.1（MIT）；MediaPipe Tasks Vision 0.10.22-rc.20250304 与 Hand Landmarker（Apache-2.0）；Kenney Interface Sounds（CC0）。新声音和水波/守护神/蛋糕图案为原创。详细来源在 `docs/assets/sources.json`，许可原文保存在 `docs/licenses/`。原有场景、学院徽章和 Iris 人像继续沿用。
 
 设计参考：[MinaLima](https://minalima.com/)、[Magical Reflections](https://www.magische-spiegelungen.de/)、[官方活点地图](https://www.harrypotter.com/fact-file/objects/the-marauders-map)、[解谜公平性](https://thecodex.ca/13-rules-for-escape-room-puzzle-design/)。

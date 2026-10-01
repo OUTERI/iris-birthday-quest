@@ -1,5 +1,5 @@
-@font-face{font-family:Cormorant;src:url('./assets/fonts/cormorant.ttf') format('truetype');font-weight:300 700;font-display:swap}
-@font-face{font-family:Pinyon;src:url('./assets/fonts/pinyon.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:Cormorant;src:url('./assets/fonts/cormorant.woff2') format('woff2');font-weight:300 700;font-display:swap}
+@font-face{font-family:Pinyon;src:url('./assets/fonts/pinyon.woff2') format('woff2');font-weight:400;font-display:swap}
 :root{--night:#11141c;--paper:#e8d6b6;--gold:#c5a46a;--gold-light:#e4c995;--wine:#792b3a;--jade:#427f73;--ink:#3e3027;--line:#c5a46a55;--serif:Cormorant,Georgia,'Songti SC',SimSun,serif;--sans:'PingFang SC','Microsoft YaHei',sans-serif}
 *{box-sizing:border-box}
 [hidden]{display:none!important}

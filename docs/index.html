@@ -7,21 +7,28 @@
   <meta name="description" content="写给 Iris 的一场生日魔法冒险。">
   <title>Iris · A Birthday in Hogwarts</title>
   <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
-  <link rel="preload" href="./assets/fonts/cormorant.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="./handbook.css?v=3">
+  <link rel="preload" href="./assets/fonts/cormorant.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="./handbook.css?v=5">
+  <link rel="stylesheet" href="./immersion.css?v=5">
+  <link rel="stylesheet" href="./hardware.css?v=5">
   <script src="./vendor/anime.min.js" defer></script>
   <script src="./vendor/Sortable.min.js" defer></script>
   <script src="./quest-data.js?v=3" defer></script>
   <script src="./quest-rules.js?v=3" defer></script>
-  <script src="./handbook.js?v=3" defer></script>
+  <script src="./birthday-content.js?v=5" defer></script>
+  <script src="./hardware.js?v=5" defer></script>
+  <script src="./immersion.js?v=6" defer></script>
+  <script src="./handbook.js?v=6" defer></script>
 </head>
 <body data-theme="castle">
   <div class="scenery" aria-hidden="true"></div>
   <div class="ambient" aria-hidden="true"></div>
+  <div class="floating-candles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  <canvas id="magic-particles" aria-hidden="true"></canvas>
   <header class="site-header"><a class="brand" href="./" aria-label="Iris 魔法手册首页"><span class="brand-sigil">✧</span><span>Iris<small>A birthday in Hogwarts</small></span></a><div class="header-tools"><span class="birthday-date">02 <small>October</small></span><button id="sound-button" class="quiet-button" data-action="sound" aria-pressed="false">♪ 音效关</button></div></header>
   <main id="app"></main>
   <button id="atlas-preview" class="atlas-preview" data-action="map" hidden><span class="folded-mark">⌖</span><span><b>折叠的活点地图</b><small id="target-label"></small></span><span aria-hidden="true">⌄</span></button>
-  <footer class="site-footer"><span>Made for Iris, with a little magic.</span><div><button class="quiet-button" data-action="credits">素材鸣谢</button><button class="quiet-button" data-action="reset">重新开始</button></div></footer>
+  <footer class="site-footer"><button class="secret-mark quiet-button" data-secret aria-label="手札上的小星星">✧</button><span>Made for Iris, with a little magic.</span><div><button class="quiet-button" data-action="credits">素材鸣谢</button><button class="quiet-button" data-action="reset">重新开始</button></div></footer>
   <nav id="book-nav" class="book-nav" aria-label="魔法手册导航" hidden><button data-action="task"><span>✧</span>任务</button><button data-action="map"><span>⌖</span>地图</button><button data-action="collection"><span>◇</span>收藏 <small id="fragment-count">0 / 6</small></button></nav>
   <dialog id="book-dialog" aria-label="魔法手册"><div id="dialog-body"></div></dialog>
   <div id="toast" role="status" aria-live="polite" hidden></div>
