@@ -12,83 +12,12 @@
   document.addEventListener('visibilitychange',()=>{if(document.hidden)close();});root.addEventListener('pagehide',close);
 
   async function pensieve(){
-    const ticket=open('The Pensieve · 记忆冥想盆',`<p>滑过银色水面，点一根已解封的银丝潜入记忆。进入后可左右拖动环顾。</p><div class="pensieve-webgl"><div class="pensieve-caption">正在唤醒银色水面……</div></div><div class="memory-selector">${options.state.quests.map((q,i)=>`<button data-memory-thread="${i}" ${q.verified?'':'disabled'}>记忆 ${i+1}${q.verified?' ✦':' ◇'}</button>`).join('')}</div><div class="hardware-controls"><button class="button secondary" data-sensor>开启转动手机看回忆</button><button class="button secondary" data-return-basin>返回水面</button><button class="button quiet" data-fullscreen>全屏沉浸</button></div><p class="hardware-status" role="status">未解封的银丝不会展示照片。无需开启传感器也能拖动查看。</p>`);
-    const host=dialog.querySelector('.pensieve-webgl'),caption=dialog.querySelector('.pensieve-caption'),status=dialog.querySelector('.hardware-status');
-    let renderer=null,frame=0,observer,orientationHandler=null,textures=[],objects=[],disposed=false;
-    let sensorEnabled=false,mode='basin',chosen=-1,angle=0,pitch=0,drag=null,moved=false,diveStart=0,baseline=null;
-    activeCleanup=()=>{
-      disposed=true;cancelAnimationFrame(frame);observer?.disconnect();if(orientationHandler)root.removeEventListener('deviceorientation',orientationHandler);
-      objects.forEach(o=>{o.geometry?.dispose();if(Array.isArray(o.material))o.material.forEach(m=>m.dispose());else o.material?.dispose();});textures.forEach(t=>t.dispose());renderer?.dispose();renderer?.forceContextLoss();
-      if(document.fullscreenElement===dialog)document.exitFullscreen?.().catch(()=>{});
-    };
+    const ticket=open('The Pensieve · 记忆星球',`<p class="pensieve-intro">每一枚封印，让新的时光在同一片星空里显影。滑过水面，潜入逐渐完整的记忆星球。</p><div class="pensieve-webgl"><div class="pensieve-caption">正在唤醒银色水面……</div></div><div class="memory-selector">${options.state.quests.map((q,i)=>`<button data-memory-thread="${i}" ${q.verified?'':'disabled'}>记忆 ${i+1}${q.verified?' ✦':' ◇'}</button>`).join('')}</div><div class="hardware-controls"><button class="button primary" data-enter-sphere>潜入记忆星球</button><button class="button secondary" data-sensor aria-pressed="false">开启转动手机</button><button class="button secondary" data-return-basin>返回水面</button><button class="button quiet" data-fullscreen>全屏沉浸</button></div><p class="hardware-status" role="status">照片会随着实体印记累计显影。未解封区域仍是银色封印。</p>`);
     try{
-      const THREE=await import('./vendor/three.module.js');if(ticket!==session)return;
-      renderer=new THREE.WebGLRenderer({antialias:innerWidth>600,alpha:true,powerPreference:'low-power'});renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.5));renderer.setSize(host.clientWidth,host.clientHeight);renderer.outputColorSpace=THREE.SRGBColorSpace;host.prepend(renderer.domElement);
-      const scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0x091923,.025);const camera=new THREE.PerspectiveCamera(48,host.clientWidth/host.clientHeight,.05,80);
-      const basin=new THREE.Group(),room=new THREE.Group();scene.add(basin,room);room.visible=false;
-      scene.add(new THREE.AmbientLight(0xb4dcea,1.3));const light=new THREE.PointLight(0xc4f4ff,70,22);light.position.set(0,5,0);scene.add(light);
-      const add=(geometry,material,parent=basin)=>{const mesh=new THREE.Mesh(geometry,material);objects.push(mesh);parent.add(mesh);return mesh;};
-      const ring=add(new THREE.TorusGeometry(2.65,.2,12,80),new THREE.MeshStandardMaterial({color:0x8c988a,metalness:.8,roughness:.24}));ring.rotation.x=Math.PI/2;
-      const base=add(new THREE.SphereGeometry(2.67,48,20,0,Math.PI*2,Math.PI/2,Math.PI/2),new THREE.MeshStandardMaterial({color:0x3e6570,metalness:.7,roughness:.28,side:THREE.DoubleSide}));base.scale.y=.35;
-      const waterMaterial=new THREE.ShaderMaterial({side:THREE.DoubleSide,transparent:true,uniforms:{uTime:{value:0},uTouch:{value:new THREE.Vector2(0,0)},uRipple:{value:-100}},vertexShader:`uniform float uTime;uniform vec2 uTouch;uniform float uRipple;varying vec3 vPos;varying float vWave;void main(){vec3 p=position;float d=distance(p.xy,uTouch);float age=uTime-uRipple;float ring=sin(d*14.-age*7.)*exp(-d*.55)*exp(-max(age,0.)*.75)*step(0.,age);vWave=sin(p.x*4.+uTime*.7)*cos(p.y*5.-uTime*.5)*.025+ring*.075;p.z+=vWave;vPos=p;gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.);}`,fragmentShader:`uniform float uTime;varying vec3 vPos;varying float vWave;void main(){float r=length(vPos.xy);float swirl=sin(r*16.+atan(vPos.y,vPos.x)*4.-uTime*.6+vWave*22.);float glint=pow(max(0.,swirl),12.);vec3 c=mix(vec3(.05,.19,.26),vec3(.45,.7,.77),.48+vWave*3.);c+=glint*.3;float glow=pow(max(0.,1.-r/2.7),2.);gl_FragColor=vec4(c+glow*.12,.92);}`});
-      waterMaterial.fragmentShader=waterMaterial.fragmentShader.replace('float r=length(vPos.xy);','float r=length(vPos.xy);if(r>2.52)discard;');
-      const water=add(new THREE.PlaneGeometry(5.04,5.04,64,64),waterMaterial);water.rotation.x=-Math.PI/2;water.position.y=.04;
-      const threads=[];
-      for(let i=0;i<6;i++){
-        const a=i/6*Math.PI*2,x=Math.cos(a)*1.45,z=Math.sin(a)*1.45,points=[];
-        for(let j=0;j<20;j++)points.push(new THREE.Vector3(x+Math.sin(j*.6)*.12,.18+j*.055,z+Math.cos(j*.5)*.09));
-        const thread=add(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points),32,.019,6,false),new THREE.MeshBasicMaterial({color:options.state.quests[i].verified?0xd9f8ff:0x486071}));thread.userData.memory=i;threads.push(thread);
-      }
-      // A real 3D room: photographic planes sit around the viewer inside a star sphere.
-      const starPositions=[];for(let i=0;i<350;i++){const az=Math.random()*Math.PI*2,el=Math.acos(Math.random()*2-1);starPositions.push(Math.sin(el)*Math.cos(az)*14,Math.cos(el)*14,Math.sin(el)*Math.sin(az)*14);}
-      const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.Float32BufferAttribute(starPositions,3));const stars=new THREE.Points(geo,new THREE.PointsMaterial({color:0xc2e5ef,size:.055,transparent:true,opacity:.7}));objects.push(stars);scene.add(stars);
-      const photoGroup=new THREE.Group();room.add(photoGroup);const loader=new THREE.TextureLoader(),raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();
-      const setView=()=>{
-        if(mode==='basin'){camera.position.set(Math.sin(angle)*6.8,5.7,Math.cos(angle)*6.8);camera.lookAt(0,0,0);}
-        else{camera.position.set(0,.1,0);camera.lookAt(Math.sin(angle)*5,Math.sin(pitch)*3,-Math.cos(angle)*5);}
-      };setView();
-      let lastRender=0;
-      const draw=time=>{if(disposed)return;if(time-lastRender<33){frame=requestAnimationFrame(draw);return;}lastRender=time;const t=time*.001;if(!reduced())waterMaterial.uniforms.uTime.value=t;
-        if(diveStart){const p=Math.min(1,(time-diveStart)/850);camera.position.lerp(new THREE.Vector3(0,.1,0),p*.22);camera.lookAt(0,-2,-1);if(p===1){diveStart=0;mode='room';basin.visible=false;room.visible=true;angle=0;pitch=0;setView();caption.textContent='拖动环顾照片，或开启转动手机。';}}
-        renderer.render(scene,camera);frame=requestAnimationFrame(draw);
-      };frame=requestAnimationFrame(draw);
-      observer=new ResizeObserver(()=>{if(disposed)return;renderer.setSize(host.clientWidth,host.clientHeight);camera.aspect=host.clientWidth/host.clientHeight;camera.updateProjectionMatrix();});observer.observe(host);
-      const enter=index=>{
-        if(!options.state.quests[index]?.verified){status.textContent='这根银丝仍被封印。先找到实体碎片。';return;}
-        chosen=index;const pictures=options.photosFor(index,options.state);photoGroup.children.slice().forEach(m=>{photoGroup.remove(m);m.geometry.dispose();m.material.map?.dispose();m.material.dispose();});
-        for(let i=0;i<4;i++){
-          const photo=pictures[i%pictures.length],texture=loader.load(`./assets/${photo.file}.webp`,()=>{if(disposed)texture.dispose();else renderer.render(scene,camera);});texture.colorSpace=THREE.SRGBColorSpace;textures.push(texture);
-          const plane=add(new THREE.PlaneGeometry(3.4,2.55),new THREE.MeshBasicMaterial({map:texture,side:THREE.DoubleSide}),photoGroup);const a=i*Math.PI/2;plane.position.set(Math.sin(a)*4,0,-Math.cos(a)*4);plane.lookAt(0,0,0);
-          // Preserve the complete image rather than cropping either face.
-          texture.onUpdate=()=>{if(texture.image){const ratio=texture.image.width/texture.image.height;plane.scale.set(ratio>1?1:ratio/1.333,ratio>1?1.333/ratio:1,1);texture.onUpdate=null;}};
-        }
-        status.textContent=`记忆 ${index+1}：${pictures.map(p=>p.caption).join(' / ')}`;options.effect();
-        dialog.querySelectorAll('[data-memory-thread]').forEach(b=>b.classList.toggle('active',Number(b.dataset.memoryThread)===index));
-        if(mode==='basin'&&!reduced()){diveStart=performance.now();caption.textContent='穿过银光，潜入这一段回忆……';}else{mode='room';basin.visible=false;room.visible=true;angle=0;pitch=0;setView();caption.textContent='拖动环顾照片，或开启转动手机。';}
-      };
-      dialog.querySelectorAll('[data-memory-thread]').forEach(b=>b.onclick=()=>enter(Number(b.dataset.memoryThread)));
-      dialog.querySelector('[data-return-basin]').onclick=()=>{mode='basin';diveStart=0;basin.visible=true;room.visible=false;angle=0;setView();caption.textContent='六根银丝，藏着属于我们的时刻。';};
-      host.onpointerdown=e=>{host.setPointerCapture(e.pointerId);drag={x:e.clientX,y:e.clientY};moved=false;};
-      host.onpointermove=e=>{
-        const rect=host.getBoundingClientRect();waterMaterial.uniforms.uTouch.value.set((e.clientX-rect.left)/rect.width*5-2.5,2.5-(e.clientY-rect.top)/rect.height*5);waterMaterial.uniforms.uRipple.value=waterMaterial.uniforms.uTime.value;
-        if(drag){const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.abs(dx)+Math.abs(dy)>3)moved=true;angle-=dx*.008;pitch=Math.max(-.8,Math.min(.8,pitch+dy*.006));drag={x:e.clientX,y:e.clientY};setView();}
-      };
-      host.onpointerup=e=>{drag=null;if(moved||mode!=='basin')return;const rect=host.getBoundingClientRect();pointer.set((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1);raycaster.setFromCamera(pointer,camera);const hits=raycaster.intersectObjects(threads);if(hits.length)enter(hits[0].object.userData.memory);};host.onpointercancel=()=>drag=null;
-      dialog.querySelector('[data-sensor]').onclick=async()=>{
-        const button=dialog.querySelector('[data-sensor]');
-        if(sensorEnabled){root.removeEventListener('deviceorientation',orientationHandler);sensorEnabled=false;baseline=null;button.textContent='开启转动手机看回忆';status.textContent='转动感应已关闭。可以继续拖动。';return;}
-        if(!root.DeviceOrientationEvent){status.textContent='没有可用的方向传感器，请拖动查看。';return;}
-        try{
-          const result=typeof DeviceOrientationEvent.requestPermission==='function'?await DeviceOrientationEvent.requestPermission():'granted';if(ticket!==session)return;
-          if(result!=='granted'){status.textContent='未允许方向感应，拖动查看同样可用。';return;}
-          orientationHandler=e=>{if(e.alpha===null||e.beta===null||e.gamma===null)return;if(!baseline)baseline={alpha:e.alpha,beta:e.beta};if(mode==='room'){let delta=e.alpha-baseline.alpha;delta=((delta+540)%360)-180;angle=-delta*Math.PI/180;pitch=Math.max(-.8,Math.min(.8,(e.beta-baseline.beta)*Math.PI/180));setView();}};
-          root.addEventListener('deviceorientation',orientationHandler);sensorEnabled=true;button.textContent='关闭转动感应';status.textContent='慢慢转动手机；若视角没有变化，请继续拖动。';
-        }catch{status.textContent='方向感应没有开启，请拖动查看。';}
-      };
-      dialog.querySelector('[data-fullscreen]').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(dialog.requestFullscreen)await dialog.requestFullscreen();else status.textContent='这个浏览器不支持全屏，可以继续在窗口中探索。';}catch{status.textContent='无法进入全屏，可以继续在窗口中探索。';}};
-      caption.textContent='六根银丝，藏着属于我们的时刻。';
-      renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();status.textContent='银色水面暂时休息了。收起此页，仍可在相册中查看全部已解封照片。';cancelAnimationFrame(frame);});
-    }catch{if(ticket===session){activeCleanup();status.textContent='这台设备暂时无法开启 3D 水面。收起此页，在记忆相册中查看照片即可。';caption.textContent='照片已经保存在记忆相册里。';}}
+      const {createPensieve}=await import('./pensieve.js?v=1');if(ticket!==session)return;
+      activeCleanup=await createPensieve({dialog,options,isCurrent:()=>ticket===session,reduced});
+      if(ticket!==session){activeCleanup();activeCleanup=()=>{};}
+    }catch{if(ticket===session){dialog.querySelector('.hardware-status').textContent='这台设备暂时无法开启 3D 星球。收起此页，在普通相册查看已解封照片。';dialog.querySelector('.pensieve-caption').textContent='照片仍在记忆相册里等你。';}}
   }
 
   async function camera(){

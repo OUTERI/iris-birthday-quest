@@ -12,3 +12,41 @@
 .spell-lock{width:50px;height:50px;margin:10px auto;border:2px solid #9a734a;border-radius:5px;position:relative;background:#bca06b33}.spell-lock:before{content:'';position:absolute;border:3px solid #9a734a;border-bottom:0;border-radius:15px 15px 0 0;width:26px;height:24px;top:-25px;left:10px;transform-origin:left bottom;transition:transform .6s}.spell-lock.open:before{transform:rotate(-45deg)}.spell-lock:after{content:'⚿';font-size:24px;color:#8c603d}
 @media(max-width:700px){#hardware-dialog .modal-heading{padding:15px}.hardware-content{padding:0 14px 16px}.pensieve-webgl{height:360px}.hardware-controls{gap:6px}.hardware-controls .button{font-size:11px;padding:8px 10px}.memory-selector{gap:5px}.memory-selector button{min-width:42px}.camera-stage{aspect-ratio:3/4}}
 @media(prefers-reduced-motion:reduce){.spell-lock:before{transition:none}}
+
+/* The sphere is the stage; controls sit on its rim like a small observatory. */
+#hardware-dialog:has(.pensieve-webgl){width:min(1050px,calc(100% - 16px));max-width:min(1050px,calc(100% - 16px));background:linear-gradient(140deg,#142633,#081620 70%);border:1px solid #8caeb977;box-shadow:0 24px 100px #000b,0 0 65px #7ccde015}
+#hardware-dialog:has(.pensieve-webgl) .modal-heading h2{font-family:Cormorant,'SimSun',serif;font-size:30px;letter-spacing:.02em}
+.pensieve-intro{max-width:650px;line-height:1.9;margin:13px 0 16px}
+.pensieve-webgl{height:min(58dvh,530px);min-height:310px;border:1px solid #94b9c166;background:#06121c;isolation:isolate}
+.pensieve-webgl:after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 40%,#030a124d 100%);box-shadow:inset 0 0 70px #92d6eb22,inset 0 0 120px #030e2444;z-index:1}
+.pensieve-webgl:before{content:'';position:absolute;inset:0;pointer-events:none;z-index:6;background:#ccefff;opacity:var(--dive-glow,0)}
+.pensieve-webgl canvas{position:relative;z-index:0;touch-action:none}
+.pensieve-webgl canvas:focus-visible{outline:2px solid #c0e9e9;outline-offset:-3px}
+.pensieve-caption{bottom:65px;left:60px;right:60px;border:0;background:linear-gradient(90deg,transparent,#071828d9 18%,#071828d9 82%,transparent);font-size:12px;line-height:1.5;z-index:2;letter-spacing:.025em;padding:8px 10px}
+.pensieve-webgl[data-mode="basin"] .pensieve-caption{bottom:12px}
+.sphere-hud{position:absolute;inset:16px 16px auto;display:flex;justify-content:space-between;align-items:flex-start;pointer-events:none;z-index:3}
+.sphere-hud[hidden],.sphere-actions[hidden],.sphere-viewer[hidden],.sphere-filmstrip[hidden]{display:none}
+.sphere-count{padding:7px 12px;color:#e9f1dd;background:#0a1b2cb3;border-left:1px solid #b0d1cc;font:32px/1.2 Cormorant,Georgia,serif;text-shadow:0 2px 12px #7dc9e633}
+.sphere-count small{font:11px/1.5 'Microsoft YaHei',sans-serif;color:#c0d3db}
+.sphere-dial{pointer-events:auto;position:relative;width:92px;padding:0;border:0;background:transparent;color:#b5d4de;cursor:pointer;filter:drop-shadow(0 2px 8px #0008)}
+.sphere-dial svg{display:block;width:100%;fill:#092332b3;stroke:#a4d1dc55;stroke-width:.7}.sphere-dial span{font-size:10px;line-height:1.2;display:block;margin-top:4px;letter-spacing:.12em}
+.sphere-dial .sphere-needle{fill:#dbeadc99;stroke:none;transform-origin:50px 50px}.sphere-dial .sphere-dot{fill:#2b4c5b;stroke:#7794a366;stroke-width:1}.sphere-dial .sphere-dot.lit{fill:#bad7d7;stroke:#e0f7ff}.sphere-dial .sphere-dot.selected{fill:#ebcfa2;stroke:#fff1d0;stroke-width:2}
+.sphere-actions{position:absolute;bottom:13px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:3;white-space:nowrap}
+.sphere-actions button{border:1px solid #87adbc66;color:#d7e5e9;background:#0a2433dd;min-width:44px;min-height:44px;font:25px/1 Cormorant,serif;cursor:pointer;backdrop-filter:blur(8px)}
+.sphere-actions [data-photo-open]{font:12px 'Microsoft YaHei',sans-serif;padding:9px 20px}
+.sphere-actions button:hover{background:#315566}.sphere-actions button:focus-visible,.sphere-dial:focus-visible,.sphere-filmstrip button:focus-visible{outline:2px solid #dbe9c9;outline-offset:3px}
+.sphere-filmstrip{display:flex;gap:7px;padding:13px 0 7px;overflow-x:auto;scrollbar-width:thin;scrollbar-color:#829da6 #0b1b28}
+.sphere-filmstrip button{flex:0 0 64px;position:relative;padding:3px;border:1px solid #91b5c155;background:#102633;color:#b7d0d7;cursor:pointer;height:62px}
+.sphere-filmstrip img{width:100%;height:100%;object-fit:contain}.sphere-filmstrip button:disabled{opacity:.45;cursor:default}.sphere-filmstrip button.active{border:2px solid #e4c79a;box-shadow:0 0 12px #e4c79a22}.sphere-filmstrip small{position:absolute;bottom:3px;right:3px;background:#06121dcc;font:12px Cormorant,serif;padding:1px 4px}.sphere-filmstrip span{font-size:24px}
+.sphere-light{pointer-events:none;position:absolute;width:120px;height:120px;transform:translate(-50%,-50%);border-radius:50%;opacity:0;border:1px solid #b8eaff99;background:radial-gradient(#c4f0ff55,transparent 65%);z-index:2}
+.sphere-light.bloom{animation:sphere-touch .8s ease-out both}
+@keyframes sphere-touch{0%{opacity:.85;transform:translate(-50%,-50%) scale(.15)}100%{opacity:0;transform:translate(-50%,-50%) scale(2)}}
+.sphere-viewer{position:absolute;inset:0;z-index:7;background:linear-gradient(#07151cf5,#152d38f5);display:flex;flex-direction:column;align-items:center;padding:14px 22px 16px;overflow:auto;cursor:auto;touch-action:pan-y;backdrop-filter:blur(12px)}
+.sphere-viewer header{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;font:12px Cormorant,'Microsoft YaHei',serif;color:#aac7d0;margin-bottom:12px}.sphere-viewer header .button{min-height:44px;font-size:12px;padding:7px 10px;color:#d5e9e9}
+.sphere-viewer img{display:block;width:100%;height:clamp(100px,30dvh,330px);object-fit:contain;flex-shrink:0;filter:drop-shadow(0 5px 20px #0004)}
+.sphere-viewer h3{font:21px Cormorant,'SimSun',serif;font-weight:500;margin:12px 0 6px;color:#e6e8d2}
+.sphere-viewer p{font-size:12px;line-height:1.85;margin:0;max-width:550px;color:#c4d3d6}.sphere-viewer nav{display:flex;gap:9px;margin:12px 0 0}.sphere-viewer nav .button{padding:8px 18px;min-height:44px;font-size:12px}
+.hardware-controls [aria-pressed="true"]{background:#365b69;color:#fff1d1;border-color:#a6cacc}
+#hardware-dialog:fullscreen{max-height:none;height:100dvh;width:100%;border:0;overflow:auto}#hardware-dialog:fullscreen .pensieve-webgl{height:calc(100dvh - 245px)}
+@media(max-width:700px){#hardware-dialog:has(.pensieve-webgl) .modal-heading{padding:12px 14px}#hardware-dialog:has(.pensieve-webgl) .modal-heading h2{font-size:22px}.pensieve-intro{font-size:11px!important}.pensieve-webgl{height:48dvh;min-height:290px}.sphere-hud{inset:12px 10px auto}.sphere-count{font-size:26px;padding:5px 7px}.sphere-count small{font-size:9px}.sphere-dial{width:73px}.pensieve-caption{left:12px;right:12px;font-size:11px}.sphere-viewer{padding:9px 13px}.sphere-viewer h3{font-size:18px}.sphere-viewer p{font-size:11px}.sphere-filmstrip button{flex-basis:57px;height:57px}.memory-selector{margin:10px 0}.memory-selector button{padding:6px 2px;font-size:10px}.hardware-controls{margin:9px 0}.hardware-content>.hardware-status{font-size:11px;line-height:1.8}}
+@media(prefers-reduced-motion:reduce){.sphere-light.bloom{animation:none}.sphere-viewer{backdrop-filter:none}}
